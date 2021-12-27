@@ -19,7 +19,7 @@
       "@logger/*": ["logger/*"],
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@stlyes/*": ["styles/*"]
+      "@styles/*": ["styles/*"]
     },
     "incremental": true
   },
