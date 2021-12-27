@@ -1,13 +1,33 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import db from '@lib/db';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import log from '@logger/index';
+import db from '@lib/db';
+
+export async function getServerSideProps({
+}: GetServerSideProps<{}>) {
+  return {
+    props: {
+      test: true,
+      userId: '23423',
+    },
+  }
+}
 
 const Home: NextPage = () => {
+  const [todos, setTodos] = useState([]);
+
   useEffect(() => {
-    db.collection().doc();
+    db.collection('todos').get().then(todos => {
+      setTodos(todos.docs.map(doc => doc.data()) as any)
+      console.log(' in get  ', todos.docs.map(doc => doc.data()))
+    })
+    db.collection('todos').onSnapshot((todos) => {
+      setTodos(todos.docs.map(doc => doc.data()) as any)
+      console.log(' in snapshot  ', todos.docs.map(doc => doc.data()))
+    })
     return () => {};
   }, []);
   return (
