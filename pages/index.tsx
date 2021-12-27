@@ -4,14 +4,8 @@ import type {
   InferGetServerSidePropsType,
 } from 'next';
 import { useEffect, useState } from 'react';
-import Layout from '@components/Layout';
-import Head from 'next/head';
-import Image from 'next/image';
 import styles from '@styles/Home.module.css';
-import log from '@logger/index';
 import db from '@lib/db';
-import PageHead from '@components/PageHead';
-import { components } from 'theme-ui';
 
 export async function getServerSideProps({}: GetServerSideProps<{}>) {
   return {
@@ -24,6 +18,7 @@ export async function getServerSideProps({}: GetServerSideProps<{}>) {
 
 const Home: NextPage = () => {
   const [todos, setTodos] = useState([]);
+  const [sessionId, setSessionId] = useState('');
 
   useEffect(() => {
     db.collection('todos')
@@ -56,4 +51,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-Home.Layout = Layout;
