@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Head from 'next/head';
 
-const PageHead:FC  = () => {
+const PageHead: FC = () => {
   return (
     <div>
       <Head>
@@ -10,7 +10,7 @@ const PageHead:FC  = () => {
         <link rel="icon" href="https://i.postimg.cc/FKDFDGPg/2.png" />
       </Head>
     </div>
-  )
-}
+  );
+};
 
-export default PageHead
+export default PageHead;
