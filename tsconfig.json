@@ -19,7 +19,8 @@
       "@logger/*": ["logger/*"],
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@assets/*": ["assets/*"]
     },
     "incremental": true
   },
