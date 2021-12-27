@@ -1,9 +1,15 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import db from '@lib/db';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    db.collection().doc();
+    return () => {};
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -66,7 +72,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
