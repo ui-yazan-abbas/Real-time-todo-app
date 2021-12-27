@@ -3,10 +3,12 @@
 import { FC } from 'react';
 import { ThemeProvider, jsx } from 'theme-ui';
 import themesMap from '@utils/theme';
+import Navbar from './Navbar';
 
 const InnerLayout: FC = ({ children }) => {
   return (
     <ThemeProvider theme={themesMap.sketchy}>
+      <Navbar />
       <div
         sx={{
           margin: `0 auto`,
