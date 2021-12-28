@@ -36,7 +36,7 @@
   margin: 0;
   line-height: 1.15;
   font-size: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
 .title,
@@ -98,11 +98,15 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  height: 4em;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 600px) {
+  .logo {
+    height: 4em;
+    margin-bottom: 5rem;
+  }
   .grid {
     width: 100%;
     flex-direction: column;

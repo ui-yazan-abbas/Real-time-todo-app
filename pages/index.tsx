@@ -9,6 +9,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <img className={styles.logo} src='https://i.postimg.cc/CMXRYnwX/logo.png'/>
         <h1 className={styles.title}>
           Welcome to <strong>Ubquiti Todo App</strong>
         </h1>
