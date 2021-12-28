@@ -4,8 +4,12 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { jsx, Themed } from 'theme-ui';
 import AddTodo from './AddTodo';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import firebase from '@lib/clientApp';
 
 const Navbar: FC = () => {
+  const [user, loading, error] = useAuthState(firebase.auth());
+
   return (
     <Themed.div
       as="header"
@@ -34,9 +38,11 @@ const Navbar: FC = () => {
         <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/todos">
           Todos
         </Themed.a>
+        {!user && 
         <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/login">
           Log in
         </Themed.a>
+        }
       </Themed.div>
       <Themed.div
         sx={{
@@ -52,6 +58,7 @@ const Navbar: FC = () => {
           }}
         ></Themed.h1>
       </Themed.div>
+      {user &&
       <Themed.div
         sx={{
           display: 'flex',
@@ -62,6 +69,7 @@ const Navbar: FC = () => {
       >
         <AddTodo />
       </Themed.div>
+       }
     </Themed.div>
   );
 };
