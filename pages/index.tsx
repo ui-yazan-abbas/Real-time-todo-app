@@ -1,50 +1,20 @@
-import type {
-  NextPage,
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-} from 'next';
-import { useEffect, useState } from 'react';
+import type { NextPage, GetServerSideProps } from 'next';
 import styles from '@styles/Home.module.css';
-import db from '@lib/db';
-
-export async function getServerSideProps({}: GetServerSideProps<{}>) {
-  return {
-    props: {
-      test: true,
-      userId: '23423',
-    },
-  };
-}
+import { Button, Box } from 'theme-ui';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
-  const [todos, setTodos] = useState([]);
-  const [sessionId, setSessionId] = useState('');
+  const router = useRouter();
 
-  useEffect(() => {
-    db.collection('todos')
-      .get()
-      .then((todos) => {
-        setTodos(todos.docs.map((doc) => doc.data()) as any);
-        console.log(
-          ' in get  ',
-          todos.docs.map((doc) => doc.data())
-        );
-      });
-    db.collection('todos').onSnapshot((todos) => {
-      setTodos(todos.docs.map((doc) => doc.data()) as any);
-      console.log(
-        ' in snapshot  ',
-        todos.docs.map((doc) => doc.data())
-      );
-    });
-    return () => {};
-  }, []);
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a>Ubquiti Todo App</a>
+          Welcome to <strong>Ubquiti Todo App</strong>
         </h1>
+        <Box>
+          <Button onClick={() => router.push('/login')}>Get Started</Button>
+        </Box>
       </main>
     </div>
   );

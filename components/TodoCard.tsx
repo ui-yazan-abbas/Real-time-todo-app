@@ -1,32 +1,27 @@
-import { Cross } from '@assets/icons'
-import { FC, useState, useEffect, useRef } from 'react'
-import {
-  Switch,
-  Box,
-  Card,
-  IconButton,
-} from 'theme-ui'
-import RichTextEditor from './RichTextEditor'
-import { throttle } from 'lodash'
-import CollaberatorLayer from './CollaberatorLayer'
+import { Cross } from '@assets/icons';
+import { FC, useState, useEffect, useRef } from 'react';
+import { Switch, Box, Card, IconButton } from 'theme-ui';
+import RichTextEditor from './RichTextEditor';
+import { throttle } from 'lodash';
+import CollaberatorLayer from './CollaberatorLayer';
 
 interface Todo {
-  completed: boolean
-  title: string
-  description: string
-  locked?: boolean
+  completed: boolean;
+  title: string;
+  description: string;
+  locked?: boolean;
   // optional for now
-  ownerID?: string
-  id: string
+  ownerID?: string;
+  id: string;
 }
 
 interface Props {
-  todo: Todo
-  onUpdate: (updatedTodo: Todo) => void
-  onDelete: (todo: Todo) => void
-  onMouseOver: (cords: { x: number; y: number }) => void
-  onMouseLeave: () => void
-  collaborators?: Record<string, { x: number; y: number }>
+  todo: Todo;
+  onUpdate: (updatedTodo: Todo) => void;
+  onDelete: (todo: Todo) => void;
+  onMouseOver: (cords: { x: number; y: number }) => void;
+  onMouseLeave: () => void;
+  collaborators?: Record<string, { x: number; y: number }>;
 }
 
 const TodoCard: FC<Props> = ({
@@ -43,7 +38,7 @@ const TodoCard: FC<Props> = ({
         onMouseOver({
           x: event.clientX,
           y: event.clientY,
-        })
+        });
       }, 5)}
       onMouseLeave={throttle(() => onMouseLeave())}
       bg={todo.completed ? '#cfc' : 'yellow'}
@@ -64,7 +59,7 @@ const TodoCard: FC<Props> = ({
         onClick={async () => {
           // todo loading indicator
           // todo test if current user can delete
-          onDelete(todo)
+          onDelete(todo);
         }}
       >
         <Cross />
@@ -82,7 +77,7 @@ const TodoCard: FC<Props> = ({
               onUpdate({
                 ...todo,
                 description: newDescription,
-              })
+              });
             }}
             value={todo.description}
           />
@@ -95,13 +90,13 @@ const TodoCard: FC<Props> = ({
               onUpdate({
                 ...todo,
                 completed: event.target.checked,
-              })
+              });
             }}
           ></Switch>
         </Box>
       </Box>
     </Card>
-  )
-}
+  );
+};
 
-export default TodoCard
+export default TodoCard;

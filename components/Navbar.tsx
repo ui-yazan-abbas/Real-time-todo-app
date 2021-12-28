@@ -50,19 +50,7 @@ const Navbar: FC = () => {
             fontSize: 20,
             fontWeight: 'bold',
           }}
-        >
-          <Themed.a
-            as={Link}
-            href="/"
-            sx={{
-              letterSpacing: -1,
-              textDecoration: `none`,
-              paddingLeft: '5px',
-            }}
-          >
-            TODO APP
-          </Themed.a>
-        </Themed.h1>
+        ></Themed.h1>
       </Themed.div>
       <Themed.div
         sx={{
