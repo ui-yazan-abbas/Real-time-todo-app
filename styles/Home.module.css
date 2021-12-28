@@ -104,8 +104,7 @@
 
 @media (max-width: 600px) {
   .logo {
-    height: 4em;
-    margin-bottom: 5rem;
+    display:none;
   }
   .grid {
     width: 100%;
