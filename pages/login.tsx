@@ -1,7 +1,12 @@
-import Loginform from '@components/LoginForm';
+import { NextPage } from 'next';
+import Auth from '@components/Auth';
 
-const login = () => {
-  return <Loginform />;
+const login: NextPage = () => {
+  return (
+    <>
+      <Auth />
+    </>
+  );
 };
 
 export default login;
