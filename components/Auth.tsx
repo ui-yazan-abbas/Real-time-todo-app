@@ -5,7 +5,7 @@ import firebase from '@lib/clientApp';
 // Configure FirebaseUI.
 const uiConfig = {
   // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: '/',
+  signInSuccessUrl: '/todos',
   // We will display GitHub as auth providers.
   signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
 };

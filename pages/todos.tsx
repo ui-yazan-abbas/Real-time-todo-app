@@ -34,7 +34,6 @@ export default function Todos({}: InferGetServerSidePropsType<
   const [sessionId, setSessionId] = useState('');
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
   const [user, loading, error] = useAuthState(firebase.auth());
-  console.log(user);
   const router = useRouter();
   useEffect(() => {
     // db.collection('todos').where('ownerId', '==', userId)
