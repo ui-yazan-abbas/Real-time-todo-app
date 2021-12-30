@@ -8,7 +8,7 @@ import { ExpandModal } from 'react-spring-modal';
 import 'react-spring-modal/styles.css';
 import TodoForm from './TodoForm';
 import * as uuid from 'uuid';
-import db from '@lib/db';
+import firebase from '@lib/firebase';
 
 interface Props {
   className?: string;
@@ -50,7 +50,7 @@ const AddTodo: FC<Props> = () => {
           onSubmit={async (todo) => {
             const id = uuid.v4();
             setMessage('Creating your todo');
-            await db
+            await firebase.database
               .collection('todos')
               .doc(id)
               .set({

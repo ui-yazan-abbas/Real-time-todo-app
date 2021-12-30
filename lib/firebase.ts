@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/firestore';
 
 const firebaseConfig = {
@@ -9,9 +10,15 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
-
+// if a Firebase instance doesn't exist, create one
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export default firebase.firestore();
+export default {
+  database: firebase.firestore(),
+  auth: firebase.auth(),
+  firebase: firebase,
+  githubAuth: firebase.auth.GithubAuthProvider.PROVIDER_ID,
+  googleAuth: firebase.auth.GoogleAuthProvider.PROVIDER_ID
+};
