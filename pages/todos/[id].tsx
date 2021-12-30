@@ -13,7 +13,6 @@ async function getCurrentUser(context: GetServerSidePropsContext) {
   const protocol = context.req.headers['x-forwarded-proto'] || 'http'
   const baseUrl = `${protocol}://${context.req.headers.host}`
 
-  console.log(' is it reading it right ?? ', jwt);
   const currentUserResponse = await fetch(`${baseUrl}/api/users/me`, {
     headers: {
       Authorization: `Bearer ${jwt}`
@@ -37,7 +36,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{id:
       },
     }
   }
-  console.log('here got current User ', currentUser)
   return { props: {
     currentUser
   }};

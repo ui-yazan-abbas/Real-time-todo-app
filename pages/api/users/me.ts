@@ -22,7 +22,6 @@ if (!admin.apps.length) {
 //Rest Api
 export default async function (req: NextApiRequest, res:NextApiResponse){
   const jwt = req.headers.authorization?.split(`Bearer `)[1];
-  console.log(' reading header jwt ??? ', jwt);
   if (jwt) {
     try {
       const { uid } = await admin.auth().verifyIdToken(jwt);
@@ -33,7 +32,6 @@ export default async function (req: NextApiRequest, res:NextApiResponse){
         })
       }
     } catch(error) {
-      console.error(error)
       res.status(403).json({
         error: {
           message: `Error validating token`

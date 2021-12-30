@@ -9,9 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     async function fetchToken() {
       const idToken = await firebase.auth.currentUser?.getIdToken();
-      console.log('got token ??? ', idToken);
       if (idToken) {
-        console.log(' setting cookie ??? ')
         Cookies.set('jwt', idToken);
       } else {
         Cookies.remove('jwt');
