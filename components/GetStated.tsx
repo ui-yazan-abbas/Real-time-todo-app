@@ -11,8 +11,9 @@ const GetStarted: FC = () => {
   const handleClick = () => {
     if (user) {
       router.push('/todos')
+    }else{
+      router.push('/login')
     }
-    router.push('/login')
   };
 
   return (
