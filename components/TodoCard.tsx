@@ -6,6 +6,10 @@ import { throttle } from 'lodash';
 import CollaberatorLayer from './CollaberatorLayer';
 import { Todo } from '@utils/types';
 import Link from 'next/link';
+import { WhatsappShareButton, FacebookShareButton, EmailShareButton, LinkedinShareButton } from 'react-share';
+import { FacebookIcon, WhatsappIcon, EmailIcon, LinkedinIcon } from 'react-share';
+import { FacebookMessengerShareButton } from 'react-share';
+import ShareLink from './ShareLink';
 
 interface Props {
   todo: Todo;
@@ -89,6 +93,7 @@ const TodoCard: FC<Props> = ({
           ></Switch>
         </Box>
       </Box>
+      <ShareLink id={todo.id}/>
     </Card>
   );
 };
