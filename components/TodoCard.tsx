@@ -1,19 +1,11 @@
 import { Cross } from '@assets/icons';
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC } from 'react';
 import { Switch, Box, Card, IconButton } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import { throttle } from 'lodash';
 import CollaberatorLayer from './CollaberatorLayer';
-
-interface Todo {
-  completed: boolean;
-  title: string;
-  description: string;
-  locked?: boolean;
-  // optional for now
-  ownerID?: string;
-  id: string;
-}
+import { Todo } from '@utils/types';
+import Link from 'next/link';
 
 interface Props {
   todo: Todo;
@@ -69,7 +61,9 @@ const TodoCard: FC<Props> = ({
           p={2}
           sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
         >
+          <Link href={`/todos/${todo.id}`}>
           {todo.title}
+          </Link>
         </Box>
         <Box p={2} sx={{ fontSize: 18 }}>
           <RichTextEditor

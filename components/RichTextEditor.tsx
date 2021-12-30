@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
+import {FC,  useRef, useEffect, useState } from 'react';
 import { AspectRatio, Box, Embed } from 'theme-ui';
 import { throttle } from 'lodash';
 import Editor from 'rich-markdown-editor';
 
-const YoutubeEmbed: React.FC<{
+const YoutubeEmbed: FC<{
   attrs: { href: string; matches: string[] };
   isSelected: boolean;
 }> = ({ attrs, isSelected }) => {

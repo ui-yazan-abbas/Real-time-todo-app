@@ -1,23 +1,16 @@
+import { Todo } from '@utils/types';
 import React, { FC, useState } from 'react';
 import { Box, Label, Input, Switch, Button, Card } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import VisuallyHidden from './VisuallyHidden';
-interface Todo {
-  completed: boolean;
-  title: string;
-  description: string;
-  locked?: boolean;
-  // optional for now
-  ownerID?: string;
+
+function isValidTodo(todo: Partial<Todo>): todo is Todo {
+  return typeof todo.title !== 'undefined';
 }
 
 interface Props {
   todo?: Todo;
   onSubmit: (value: Todo) => void;
-}
-
-function isValidTodo(todo: Partial<Todo>): todo is Todo {
-  return typeof todo.title !== 'undefined';
 }
 
 const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
@@ -29,7 +22,6 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
       p={4}
       sx={{
         boxShadow: 'none',
-
         ':hover': {
           boxShadow: '15px 24px 25px -18px rgb(0 0 0 / 40%)',
         },

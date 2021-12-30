@@ -1,23 +1,23 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import type { NextPage, GetServerSideProps } from 'next';
 import styles from '@styles/Home.module.css';
-import { Button, Box } from 'theme-ui';
-import { useRouter } from 'next/router';
+import GetStarted from '@components/GetStated';
+import { Box, jsx } from 'theme-ui';
 
 const Home: NextPage = () => {
-  const router = useRouter();
 
   return (
-    <div className={styles.container}>
+    <Box sx={{
+      padding: '0 2rem',
+    }}>
       <main className={styles.main}>
-        <img className={styles.logo} src='https://i.postimg.cc/CMXRYnwX/logo.png'/>
         <h1 className={styles.title}>
-          Welcome to <strong>Ubquiti Todo App</strong>
+          Welcome to <strong>Ubiquiti Todo App</strong>
         </h1>
-        <Box>
-          <Button onClick={() => router.push('/login')}>Get Started</Button>
-        </Box>
+        <GetStarted />
       </main>
-    </div>
+    </Box>
   );
 };
 

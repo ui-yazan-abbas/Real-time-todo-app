@@ -1,13 +1,27 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import { FC } from 'react';
-import InnerLayout from './InnerLayout';
+import { ThemeProvider, jsx } from 'theme-ui';
+import themesMap from '@utils/theme';
+import Navbar from './Navbar';
 import PageHead from './PageHead';
 
 const Layout: FC = ({ children }) => {
   return (
-    <>
+    <ThemeProvider theme={themesMap.sketchy}>
       <PageHead />
-      <InnerLayout children={children} />
-    </>
+      <Navbar />
+      <div
+        sx={{
+          margin: `0 auto`,
+          px: 20,
+          maxWidth: 800,
+          minHeight: 800,
+        }}
+      >
+        <main>{children}</main>
+      </div>
+    </ThemeProvider>
   );
 };
 
