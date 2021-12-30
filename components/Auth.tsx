@@ -20,8 +20,10 @@ const Auth: FC = () => {
       <StyledFirebaseAuth uiConfig={{
         // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
         // display GitHub as auth providers.
+        signInSuccessUrl: '/todos',
         signInOptions: [firebase.githubAuth, firebase.googleAuth],
         callbacks: {
+          
           signInSuccessWithAuthResult(result) {
             onSuccessfulSignin(result.user)
             return false;
