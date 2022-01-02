@@ -33,7 +33,6 @@ https://www.loom.com/my-videos
 ## Why Nextjs
 - Server Side Rendering (SSR):
 
-![ssg-vs-ssr-mechanics-overview](https://user-images.githubusercontent.com/77113737/147873293-6ff05ed1-a879-4fe7-965e-648e13bc4a67.png)
 
  React components that make up the user-facing part of a website are all initially rendered on the server side. This means that once the HTML has been   delivered to the client (the user’s browser), nothing else needs to happen for the user to be able to read the content on the page. This makes page loading times appear much faster to the user.
  
