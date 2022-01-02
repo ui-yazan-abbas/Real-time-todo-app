@@ -1,14 +1,11 @@
 import { Todo, TodoSession, UserInfo } from '@utils/types';
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetStaticPropsType,
-} from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import firebase from '@lib/firebase';
 import TodoCard from '@components/TodoCard';
 import { Box } from 'theme-ui';
+import { omit } from 'lodash';
 
 async function getCurrentUser(context: GetServerSidePropsContext) {
   const jwt = context.req.cookies.jwt;
@@ -88,66 +85,75 @@ export default function TodoPage(props: TodoPageProps) {
   return (
     <Box>
       {todo && (
-        <TodoCard
-          collaborators={viewSession?.collaborators}
-          onMouseOver={async ({ x, y }) => {
-            const currentSession = await firebase.database
-              .collection('sessions')
-              .doc(todo.id)
-              .get();
-            if (!currentSession.exists) {
-              await firebase.database.collection('sessions').doc(todo.id).set({
-                id: todo.id,
-                collaborators: {},
-              });
-            }
+       <TodoCard
+       collaborators={omit(
+         viewSession?.collaborators,
+         props.currentUser.uid
+       )}
+       onMouseOver={async ({ x, y }) => {
+         const currentSession = await firebase.database
+           .collection('sessions')
+           .doc(todo.id)
+           .get();
+         if (!currentSession.exists) {
+           await firebase.database
+             .collection('sessions')
+             .doc(todo.id)
+             .set({
+               id: todo.id,
+               collaborators: {},
+             });
+         }
 
+         await firebase.database
+           .collection('sessions')
+           .doc(todo.id)
+           .update({
+             collaborators: {
+              [props.currentUser.uid]: { x, y },
+             },
+           });
+       }}
+       onMouseLeave={async () => {
+         // dotted updates
+         const currentSession = await firebase.database
+           .collection('sessions')
+           .doc(todo.id)
+           .get();
+           if (currentSession.exists) {
             await firebase.database
               .collection('sessions')
               .doc(todo.id)
-              .update({
-                collaborators: {
-                  [props.currentUser.uid]: { x, y },
-                },
-              });
-          }}
-          onMouseLeave={async () => {
-            // dotted updates
-            const currentSession = await firebase.database
-              .collection('sessions')
-              .doc(todo.id)
-              .get();
-            if (currentSession.exists) {
-              await firebase.database
-                .collection('sessions')
-                .doc(todo.id)
-                .set(
-                  {
-                    collaborators: {
-                      [props.currentUser.uid]:
-                        firebase.firebase.firestore.FieldValue.delete(),
-                    },
+              .set(
+                {
+                  collaborators: {
+                    [props.currentUser.uid]:
+                      firebase.firebase.firestore.FieldValue.delete(),
                   },
-                  { merge: true }
-                );
-            }
-          }}
-          onDelete={async (todo) => {
-            await firebase.database.collection('todos').doc(todo.id).delete();
-          }}
-          onUpdate={(updatedTodo) => {
-            firebase.database
-              .collection('todos')
-              .doc(todo.id)
-              .update({
-                ...updatedTodo,
-                updatedAt: Date.now(),
-                updatedBy: props.currentUser.uid,
-              });
-          }}
-          key={todo.id}
-          todo={todo}
-        ></TodoCard>
+                },
+                { merge: true }
+              );
+          }
+        }}
+       onDelete={async (todo) => {
+         await firebase.database
+           .collection('todos')
+           .doc(todo.id)
+           .delete();
+       }}
+       onUpdate={(updatedTodo) => {
+         firebase.database
+           .collection('todos')
+           .doc(todo.id)
+           .update({
+             ...updatedTodo,
+             updatedAt: Date.now(),
+             updatedBy: props.currentUser.uid,
+           });
+       }}
+       key={todo.id}
+       todo={todo}
+     ></TodoCard>
       )}
     </Box>
   );

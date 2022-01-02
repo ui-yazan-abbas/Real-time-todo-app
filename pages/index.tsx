@@ -1,23 +1,39 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import type { NextPage, GetServerSideProps } from 'next';
-import styles from '@styles/Home.module.css';
-import GetStarted from '@components/GetStated';
-import { Box, jsx } from 'theme-ui';
+import type { NextPage } from 'next';
+import GetStarted from '@components/GetStarted';
+import { Box, Heading, jsx } from 'theme-ui';
 
 const Home: NextPage = () => {
   return (
     <Box
       sx={{
-        padding: '0 2rem',
+        minHeight: '80vh',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <strong>Ubiquiti Todo App</strong>
-        </h1>
-        <GetStarted />
-      </main>
+      <Heading
+        sx={{
+          padding: '2rem',
+          fontSize: '40px',
+        }}
+      >
+        {' '}
+        Welcome to{' '}
+        <Heading
+          sx={{
+            color: '#6c9ed8',
+          }}
+        >
+          Ubiquiti Todo App
+        </Heading>
+      </Heading>
+
+      <GetStarted />
     </Box>
   );
 };

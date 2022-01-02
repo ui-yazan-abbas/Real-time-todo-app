@@ -70,7 +70,7 @@ const TodoCard: FC<Props> = ({
     >
       <CollaberatorLayer cardRef={cardRef} collaborators={collaborators} />
       <IconButton
-        sx={{ position: 'absolute', top: 10, right: 10 }}
+        sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 10 }}
         onClick={async () => {
           // todo loading indicator
           // todo test if current user can delete
@@ -112,36 +112,6 @@ const TodoCard: FC<Props> = ({
       </Box>
       <ShareLink id={todo.id} />
     </Card>
-  );
-};
-
-const CollaboratorsLayer: React.FC<{
-  cardRef: RefObject<HTMLDivElement>;
-  collaborators?: Record<string, { x: number; y: number }>;
-}> = ({ collaborators, cardRef }) => {
-  const mice = Object.values(collaborators || {});
-  const [rect, setRect] = useState({ width: 0, height: 0 });
-  useEffect(() => {
-    if (cardRef.current) {
-      const { width, height } = cardRef.current.getBoundingClientRect();
-      setRect({ width, height });
-    }
-  }, [cardRef.current]);
-  return (
-    <>
-      {mice.map(({ x, y }) => (
-        <Box
-          key={`${x}:${y}`}
-          sx={{
-            position: 'absolute',
-            top: y * rect.height,
-            left: x * rect.width,
-          }}
-        >
-          <Cross />
-        </Box>
-      ))}
-    </>
   );
 };
 

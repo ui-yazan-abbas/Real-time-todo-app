@@ -68,6 +68,7 @@ const AddTodo: FC<Props> = () => {
       </ExpandModal>
 
       <Themed.div
+        sx={{ cursor: 'pointer' }}
         ref={buttonRef}
         as={Button}
         mx={2}
