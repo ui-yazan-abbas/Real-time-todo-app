@@ -38,7 +38,6 @@ const login: NextPage = () => {
           signInOptions: [
             firebase.githubAuth,
             firebase.googleAuth,
-            firebase.facebookAuth,
           ],
           callbacks: {
             signInSuccessWithAuthResult(result) {

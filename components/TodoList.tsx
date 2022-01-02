@@ -16,6 +16,7 @@ const TodosList: FC = () => {
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
   const [user, loading, error] = useAuthState(firebase.auth);
   const router = useRouter();
+  console.log('todo list',user);
 
   useEffect(() => {
     firebase.database
@@ -28,6 +29,7 @@ const TodosList: FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log('todo list use effect',user);
     if (!user) router.push('/login');
     if (todos) {
       if (!sessionId) {

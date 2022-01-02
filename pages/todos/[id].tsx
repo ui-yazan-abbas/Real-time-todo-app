@@ -151,6 +151,7 @@ export default function TodoPage(props: TodoPageProps) {
              updatedBy: props.currentUser.uid,
            });
        }}
+       
        key={todo.id}
        todo={todo}
      ></TodoCard>

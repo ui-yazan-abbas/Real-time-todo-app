@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 const Navbar: FC = () => {
   const [user, loading, error] = useAuthState(firebase.auth);
   const router = useRouter();
+  console.log('nav bar',user);
   return (
     <Themed.div
       as="header"
@@ -72,8 +73,7 @@ const Navbar: FC = () => {
           <Button
             sx={{ cursor: 'pointer' }}
             onClick={() => {
-              firebase.auth.signOut();
-              router.push('/');
+              firebase.auth.signOut().then(()=> console.log(user,': signed out'));
             }}
           >
             Logout
