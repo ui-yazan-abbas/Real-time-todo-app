@@ -1,14 +1,14 @@
-import {FC,  useRef, useEffect, useState } from 'react';
-import { AspectRatio, Box, Embed } from 'theme-ui';
-import { throttle } from 'lodash';
-import Editor from 'rich-markdown-editor';
+import React, { useRef, useEffect, useState, useMemo } from 'react'
+import { AspectRatio, Box, useThemeUI, Embed } from 'theme-ui'
+import { throttle } from 'lodash'
+import Editor from 'rich-markdown-editor'
 
-const YoutubeEmbed: FC<{
-  attrs: { href: string; matches: string[] };
-  isSelected: boolean;
+const YoutubeEmbed: React.FC<{
+  attrs: { href: string; matches: string[] }
+  isSelected: boolean
 }> = ({ attrs, isSelected }) => {
   return (
-    <AspectRatio ratio={16 / 9}>
+    <AspectRatio key={attrs.matches[1]} ratio={16 / 9}>
       <Embed
         className={isSelected ? 'ProseMirror-selectednode' : ''}
         src={`https://www.youtube.com/embed/${attrs.matches[1]}`}
@@ -18,8 +18,8 @@ const YoutubeEmbed: FC<{
         title="Embedded youtube"
       />
     </AspectRatio>
-  );
-};
+  )
+}
 
 const embeds = [
   {
@@ -37,30 +37,45 @@ const embeds = [
     matcher: (url: string) => {
       const matches = url.match(
         /(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([a-zA-Z0-9_-]{11})$/i
-      );
+      )
       if (matches?.length) {
-        return matches;
+        return matches
       }
-      return false;
+      return false
     },
     component: YoutubeEmbed,
   },
-];
+]
 
 interface TextProps {
-  value: string;
-  onChange: (value: string) => void;
+  value: string
+  onChange: (value: string) => void
 }
 
 const RichTextEditor: React.FC<TextProps> = ({ value, onChange }) => {
-  const editorRef = useRef<Editor>(null);
-  const [remoteUpdates, setRemoteUpdates] = useState(0);
+  const editorRef = useRef<Editor>(null)
+  const [remoteUpdates, setRemoteUpdates] = useState(0)
   useEffect(() => {
     if (editorRef.current?.isBlurred) {
       // value has changed while editor is blurred, means it's a remote update
-      setRemoteUpdates((updates) => updates + 1);
+      setRemoteUpdates((updates) => updates + 1)
     }
-  }, [value]);
+  }, [value])
+
+  const onChangeHandler = useMemo(
+    () =>
+      throttle(
+        () => {
+          onChange(editorRef.current?.value() || '')
+        },
+        100,
+        {
+          leading: false,
+        }
+      ),
+    []
+  )
+
   return (
     <Box
       my={2}
@@ -69,7 +84,7 @@ const RichTextEditor: React.FC<TextProps> = ({ value, onChange }) => {
           background: 'inherit',
         },
         '#block-menu-container': {
-          zIndex: 100,
+          zIndex: 10000,
         },
       }}
     >
@@ -78,18 +93,11 @@ const RichTextEditor: React.FC<TextProps> = ({ value, onChange }) => {
         ref={editorRef}
         embeds={embeds}
         defaultValue={value || ''}
-        onKeyDown={throttle(
-          () => {
-            onChange(editorRef.current?.value() || '');
-          },
-          50,
-          {
-            leading: false,
-          }
-        )}
+        onKeyDown={onChangeHandler}
+        onChange={onChangeHandler}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default RichTextEditor;
+export default RichTextEditor
