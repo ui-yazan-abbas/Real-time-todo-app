@@ -31,7 +31,7 @@ https://www.loom.com/my-videos
 
 
 ## Why Nextjs
--Server Side Rendering (SSR):
+- Server Side Rendering (SSR):
 
 ![ssg-vs-ssr-mechanics-overview](https://user-images.githubusercontent.com/77113737/147873293-6ff05ed1-a879-4fe7-965e-648e13bc4a67.png)
 
@@ -41,7 +41,29 @@ https://www.loom.com/my-videos
  Rendering the same components on the server side as on the client side (universal rendering) means that development time is reduced as we can build our      React components once and Next JS takes care of everything to do with re-rendering those components in the user’s browser. Developers can just concentrate on building components and not have to worry (too much!) about which environment a component is being rendered in.
  
  
--advanced routing:
+- Advanced routing:
+ Next.js has a file-system based router built on the concept of pages. When a file is added to the pages directory, it's automatically available as a route. The files inside the pages directory can be used to define most common patterns.
+
+ Index routes
+The router will automatically route files named index to the root of the directory.
+```bash
+pages/index.tsx → /
+pages/blog/index.js → /blog
+```
+
+ Nested routes
+The router supports nested files. If you create a nested folder structure, files will automatically be routed in the same way still.
+```bash
+pages/blog/first-post.js → /blog/first-post
+pages/dashboard/settings/username.js → /dashboard/settings/username
+```
+
+Dynamic route segments
+To match a dynamic segment, you can use the bracket syntax. This allows you to match named parameters.
+```bash
+pages/blog/[id].js → /blog/:id (/blog/q1234frfa1)
+```
+
  
 ## Why Firebase
 
