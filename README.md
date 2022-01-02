@@ -15,6 +15,8 @@ NEXT_PUBLIC_FIREBASE_SENDER_ID=
 ```
 You will also need a firebase admin sdk json file by generating it following the guide on this link:
 https://firebase.google.com/docs/admin/setup#add_firebase_to_your_app
+
+
 to run the development server:
 ```bash
 npm run dev
