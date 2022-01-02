@@ -44,21 +44,21 @@ https://www.loom.com/my-videos
 - Advanced routing:
  Next.js has a file-system based router built on the concept of pages. When a file is added to the pages directory, it's automatically available as a route. The files inside the pages directory can be used to define most common patterns.
 
- Index routes
+ Index routes:
 The router will automatically route files named index to the root of the directory.
 ```bash
 pages/index.tsx → /
 pages/blog/index.js → /blog
 ```
 
- Nested routes
+ Nested routes:
 The router supports nested files. If you create a nested folder structure, files will automatically be routed in the same way still.
 ```bash
 pages/blog/first-post.js → /blog/first-post
 pages/dashboard/settings/username.js → /dashboard/settings/username
 ```
 
-Dynamic route segments
+Dynamic route segments:
 To match a dynamic segment, you can use the bracket syntax. This allows you to match named parameters.
 ```bash
 pages/blog/[id].js → /blog/:id (/blog/q1234frfa1)
