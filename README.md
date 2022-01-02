@@ -26,8 +26,7 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 ## Demo Video
 
-https://www.loom.com/my-videos
-
+https://www.loom.com/share/4a8543c1be6f43349bca30cfc2c97e62
 
 
 ## Why Nextjs
