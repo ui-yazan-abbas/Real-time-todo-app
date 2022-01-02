@@ -50,20 +50,19 @@ https://www.loom.com/my-videos
 The router will automatically route files named index to the root of the directory.
 ```bash
 pages/index.tsx → /
-pages/blog/index.js → /blog
+pages/todos/index.tsx → /todos
 ```
 
  Nested routes:
 The router supports nested files. If you create a nested folder structure, files will automatically be routed in the same way still.
 ```bash
-pages/blog/first-post.js → /blog/first-post
-pages/dashboard/settings/username.js → /dashboard/settings/username
+pages/todos/first-task.tsx → /todos/first-task
 ```
 
 Dynamic route segments:
 To match a dynamic segment, you can use the bracket syntax. This allows you to match named parameters.
 ```bash
-pages/blog/[id].js → /blog/:id (/blog/q1234frfa1)
+pages/blog/[id].tsx → /todos/:id (/todos/q1234frfa1)
 ```
 
  
