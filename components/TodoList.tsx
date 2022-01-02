@@ -28,7 +28,7 @@ const TodosList: FC = () => {
   }, []);
 
   useEffect(() => {
-    if(!user) router.push('/login')
+    if (!user) router.push('/login');
     if (todos) {
       if (!sessionId) {
         setSessionId(uuid.v4());

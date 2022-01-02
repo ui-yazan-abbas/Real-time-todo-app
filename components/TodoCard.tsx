@@ -70,7 +70,7 @@ const TodoCard: FC<Props> = ({
     >
       <CollaberatorLayer cardRef={cardRef} collaborators={collaborators} />
       <IconButton
-        sx={{ cursor:'pointer', position: 'absolute', top: 10, right: 10 }}
+        sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 10 }}
         onClick={async () => {
           // todo loading indicator
           // todo test if current user can delete

@@ -73,7 +73,7 @@ const Navbar: FC = () => {
             sx={{ cursor: 'pointer' }}
             onClick={() => {
               firebase.auth.signOut();
-              router.push('/')
+              router.push('/');
             }}
           >
             Logout

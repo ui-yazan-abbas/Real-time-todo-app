@@ -16,15 +16,25 @@ const Home: NextPage = () => {
         alignItems: 'center',
       }}
     >
-      <Heading sx={{
-        padding: '2rem',
-        fontSize: '40px'
-      }}>  Welcome to <Heading sx={{
-        color: '#6c9ed8'
-      }}>Ubiquiti Todo App</Heading></Heading>
+      <Heading
+        sx={{
+          padding: '2rem',
+          fontSize: '40px',
+        }}
+      >
+        {' '}
+        Welcome to{' '}
+        <Heading
+          sx={{
+            color: '#6c9ed8',
+          }}
+        >
+          Ubiquiti Todo App
+        </Heading>
+      </Heading>
 
       <GetStarted />
-    </Box >
+    </Box>
   );
 };
 
