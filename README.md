@@ -41,7 +41,9 @@ https://www.loom.com/my-videos
  Rendering the same components on the server side as on the client side (universal rendering) means that development time is reduced as we can build our      React components once and Next JS takes care of everything to do with re-rendering those components in the user’s browser. Developers can just concentrate on building components and not have to worry (too much!) about which environment a component is being rendered in.
  
  
-- Advanced routing:
+- Advanced routing
+
+
  Next.js has a file-system based router built on the concept of pages. When a file is added to the pages directory, it's automatically available as a route. The files inside the pages directory can be used to define most common patterns.
 
  Index routes:
