@@ -5,16 +5,17 @@ import TodoCard from '@components/TodoCard';
 import * as uuid from 'uuid';
 import admin from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Auth from '@components/Auth';
 import { TodoSession } from '@utils/types';
 import { ViewSessions } from '@utils/types';
 import { omit } from 'lodash';
+import { useRouter } from 'next/router';
 
 const TodosList: FC = () => {
   const [todos, setTodos] = useState([]);
   const [sessionId, setSessionId] = useState('');
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
   const [user, loading, error] = useAuthState(firebase.auth);
+  const router = useRouter();
 
   useEffect(() => {
     firebase.database
@@ -27,11 +28,11 @@ const TodosList: FC = () => {
   }, []);
 
   useEffect(() => {
+    if(!user) router.push('/login')
     if (todos) {
       if (!sessionId) {
         setSessionId(uuid.v4());
       }
-
       todos.forEach((todo: { id: string }) => {
         firebase.database
           .collection('sessions')
@@ -52,11 +53,9 @@ const TodosList: FC = () => {
       });
     }
   }, [todos]);
-
   return (
     <Box>
       {loading && <h4> loading...</h4>}
-      {!user && <Auth />}
       {user && (
         <>
           {todos?.map((todo: any) => (

@@ -6,10 +6,11 @@ import { Button, jsx, Themed } from 'theme-ui';
 import AddTodo from './AddTodo';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from '@lib/firebase';
+import { useRouter } from 'next/router';
 
 const Navbar: FC = () => {
   const [user, loading, error] = useAuthState(firebase.auth);
-
+  const router = useRouter();
   return (
     <Themed.div
       as="header"
@@ -72,6 +73,7 @@ const Navbar: FC = () => {
             sx={{ cursor: 'pointer' }}
             onClick={() => {
               firebase.auth.signOut();
+              router.push('/')
             }}
           >
             Logout
