@@ -6,31 +6,36 @@ import { useRouter } from 'next/router';
 
 const Auth: FC = () => {
   const router = useRouter();
-  
+
   const onSuccessfulSignin = async (userInfo: UserInfo) => {
-    const { email, displayName , uid } = userInfo;
+    const { email, displayName, uid } = userInfo;
     router.push('/todos');
     await firebase.database.collection('users').doc(uid).set({
-      email, displayName , uid, id: uid,
+      email,
+      displayName,
+      uid,
+      id: uid,
     });
-  }
+  };
 
   return (
     <div>
       <h1>Ubiquiti Todo App</h1>
-      <StyledFirebaseAuth uiConfig={{
-        // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function or I can use them both
-        // display GitHub as auth providers.
-        signInSuccessUrl: '/todos',
-        signInOptions: [firebase.githubAuth, firebase.googleAuth],
-        callbacks: {
-          
-          signInSuccessWithAuthResult(result) {
-            onSuccessfulSignin(result.user)
-            return false;
-          }
-        }
-      }} firebaseAuth={firebase.auth} />
+      <StyledFirebaseAuth
+        uiConfig={{
+          // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function or I can use them both
+          // display GitHub as auth providers.
+          signInSuccessUrl: '/todos',
+          signInOptions: [firebase.githubAuth, firebase.googleAuth],
+          callbacks: {
+            signInSuccessWithAuthResult(result) {
+              onSuccessfulSignin(result.user);
+              return false;
+            },
+          },
+        }}
+        firebaseAuth={firebase.auth}
+      />
     </div>
   );
 };

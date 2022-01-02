@@ -1,4 +1,3 @@
-
 export type ViewSessions = Record<string, TodoSession>;
 
 export interface Todo {

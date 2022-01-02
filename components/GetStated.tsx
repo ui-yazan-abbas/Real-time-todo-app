@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC } from 'react';
 import { Button, Box } from 'theme-ui';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -10,9 +10,9 @@ const GetStarted: FC = () => {
 
   const handleClick = () => {
     if (user) {
-      router.push('/todos')
-    }else{
-      router.push('/login')
+      router.push('/todos');
+    } else {
+      router.push('/login');
     }
   };
 
@@ -22,7 +22,7 @@ const GetStarted: FC = () => {
         <Button onClick={handleClick}>Get Started</Button>
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default GetStarted
+export default GetStarted;

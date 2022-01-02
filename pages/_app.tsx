@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     }
     fetchToken();
-  }, [firebase.auth.currentUser])
+  }, [firebase.auth.currentUser]);
   return (
     <Layout>
       <Component {...pageProps} />;

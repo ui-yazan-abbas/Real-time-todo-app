@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 import * as admin from 'firebase-admin';
-import adminData from './ubiquitiapp-firebase-adminsdk-jwru7-e76e2a104b.json'
+import adminData from './ubiquitiapp-firebase-adminsdk-jwru7-e76e2a104b.json';
 
-const  data: any = adminData;
+const data: any = adminData;
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -20,27 +20,31 @@ if (!admin.apps.length) {
 }
 
 //Rest Api
-export default async function (req: NextApiRequest, res:NextApiResponse){
+export default async function (req: NextApiRequest, res: NextApiResponse) {
   const jwt = req.headers.authorization?.split(`Bearer `)[1];
   if (jwt) {
     try {
       const { uid } = await admin.auth().verifyIdToken(jwt);
-      const currentUser = await admin.firestore().collection('users').doc(uid).get();
+      const currentUser = await admin
+        .firestore()
+        .collection('users')
+        .doc(uid)
+        .get();
       if (currentUser.exists) {
         res.status(200).json({
-          currentUser: currentUser.data()
-        })
+          currentUser: currentUser.data(),
+        });
       }
-    } catch(error) {
+    } catch (error) {
       res.status(403).json({
         error: {
-          message: `Error validating token`
-        }
-      })
+          message: `Error validating token`,
+        },
+      });
     }
   } else {
     res.status(403).json({
-      error: 'No Valid Token'
-    })
+      error: 'No Valid Token',
+    });
   }
 }

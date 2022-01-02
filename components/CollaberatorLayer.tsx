@@ -1,20 +1,19 @@
-import { FC, RefObject, useEffect, useState } from 'react'
+import { FC, RefObject, useEffect, useState } from 'react';
 import { Box } from 'theme-ui';
 import { Cross } from '@assets/icons';
 
-
 const CollaberatorLayer: FC<{
-  cardRef: RefObject<HTMLDivElement>
-  collaborators?: Record<string, { x: number; y: number }>
+  cardRef: RefObject<HTMLDivElement>;
+  collaborators?: Record<string, { x: number; y: number }>;
 }> = ({ collaborators, cardRef }) => {
-  const mice = Object.values(collaborators || {})
-  const [rect, setRect] = useState({ width: 0, height: 0 })
+  const mice = Object.values(collaborators || {});
+  const [rect, setRect] = useState({ width: 0, height: 0 });
   useEffect(() => {
     if (cardRef.current) {
-      const { width, height } = cardRef.current.getBoundingClientRect()
-      setRect({ width, height })
+      const { width, height } = cardRef.current.getBoundingClientRect();
+      setRect({ width, height });
     }
-  }, [cardRef.current])
+  }, [cardRef.current]);
   return (
     <>
       {mice.map(({ x, y }) => (
@@ -30,7 +29,7 @@ const CollaberatorLayer: FC<{
         </Box>
       ))}
     </>
-  )
-}
+  );
+};
 
 export default CollaberatorLayer;

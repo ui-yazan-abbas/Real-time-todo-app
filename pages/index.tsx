@@ -6,11 +6,12 @@ import GetStarted from '@components/GetStated';
 import { Box, jsx } from 'theme-ui';
 
 const Home: NextPage = () => {
-
   return (
-    <Box sx={{
-      padding: '0 2rem',
-    }}>
+    <Box
+      sx={{
+        padding: '0 2rem',
+      }}
+    >
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <strong>Ubiquiti Todo App</strong>

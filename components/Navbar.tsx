@@ -68,9 +68,11 @@ const Navbar: FC = () => {
           }}
         >
           <AddTodo />
-          <Button onClick={() => {
-            firebase.auth.signOut();
-          }}>
+          <Button
+            onClick={() => {
+              firebase.auth.signOut();
+            }}
+          >
             Logout
           </Button>
         </Themed.div>
