@@ -1,10 +1,11 @@
 ## Real-time todo App
 implemented using TypeScript with Nextjs, Node and Firebase
 ![Skärmklipp](https://user-images.githubusercontent.com/77113737/147872714-18b04949-99d6-4f2c-8d8d-1dade2ddbea6.JPG)
+## Running the App
 
-## why nextjs
+## why Nextjs
 
-## Why firebase
+## Why Firebase
 
 
 ## Getting Started
