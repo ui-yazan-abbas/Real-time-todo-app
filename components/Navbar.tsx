@@ -69,6 +69,7 @@ const Navbar: FC = () => {
         >
           <AddTodo />
           <Button
+            sx={{ cursor: 'pointer' }}
             onClick={() => {
               firebase.auth.signOut();
             }}
