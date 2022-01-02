@@ -36,7 +36,6 @@ const login: NextPage = () => {
           // display GitHub as auth providers.
           signInSuccessUrl: '/todos',
           signInOptions: [
-            firebase.githubAuth,
             firebase.googleAuth,
           ],
           callbacks: {
