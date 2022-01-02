@@ -26,6 +26,10 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 ## Demo Video
 
+https://www.loom.com/my-videos
+
+
+
 ## Why Nextjs
 -Server Side Rendering (SSR):
 
