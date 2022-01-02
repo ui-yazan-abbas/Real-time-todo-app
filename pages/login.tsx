@@ -10,7 +10,7 @@ const login: NextPage = () => {
 
   const onSuccessfulSignin = async (userInfo: UserInfo) => {
     const { email, displayName, uid } = userInfo;
-    router.push('/todos');
+
     await firebase.database.collection('users').doc(uid).set({
       email,
       displayName,
@@ -42,6 +42,8 @@ const login: NextPage = () => {
           callbacks: {
             signInSuccessWithAuthResult(result) {
               onSuccessfulSignin(result.user);
+              console.log({result});
+              router.push('/todos');
               return false;
             },
           },

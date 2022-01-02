@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [firebase.auth.currentUser]);
   return (
     <Layout>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Layout>
   );
 }
