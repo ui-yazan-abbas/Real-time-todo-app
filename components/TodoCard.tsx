@@ -51,6 +51,7 @@ const TodoCard: FC<Props> = ({
       setBackgroundColor(todo.completed ? '#cfc' : 'yellow');
     }
   }, [collaborators, todo]);
+  // todo.ownerId === currentUser.uid
   return (
     <Card
       ref={cardRef}

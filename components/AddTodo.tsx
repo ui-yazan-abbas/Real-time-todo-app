@@ -10,12 +10,11 @@ import TodoForm from './TodoForm';
 import * as uuid from 'uuid';
 import firebase from '@lib/firebase';
 
-interface Props {
-  className?: string;
-  id?: string;
+interface AddTodoProps {
+  userId: string;
 }
 
-const AddTodo: FC<Props> = () => {
+const AddTodo: FC<AddTodoProps> = ({ userId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -57,6 +56,7 @@ const AddTodo: FC<Props> = () => {
                 ...todo,
                 id,
                 timestamp: Date.now(),
+                ownerId: userId,
               });
             setMessage('Done!');
             setTimeout(() => {

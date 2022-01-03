@@ -17,11 +17,11 @@ const GetStarted: FC = () => {
   };
 
   return (
-      <Box>
-        <Button sx={{ cursor: 'pointer' }} onClick={handleClick}>
-          Get Started
-        </Button>
-      </Box>
+    <Box>
+      <Button sx={{ cursor: 'pointer' }} onClick={handleClick}>
+        Get Started
+      </Button>
+    </Box>
   );
 };
 

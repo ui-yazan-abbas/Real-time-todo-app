@@ -7,11 +7,12 @@ import AddTodo from './AddTodo';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from '@lib/firebase';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const Navbar: FC = () => {
   const [user, loading, error] = useAuthState(firebase.auth);
   const router = useRouter();
-  console.log('nav bar',user, loading, error);
+
   return (
     <Themed.div
       as="header"
@@ -37,10 +38,7 @@ const Navbar: FC = () => {
         <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/">
           Home
         </Themed.a>
-        <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/todos">
-          Todos
-        </Themed.a>
-        {!user && (
+        {!user && !loading && (
           <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/login">
             Log in
           </Themed.a>
@@ -58,7 +56,7 @@ const Navbar: FC = () => {
             fontSize: 20,
             fontWeight: 'bold',
           }}
-        ></Themed.h1>
+        >Real time todo app</Themed.h1>
       </Themed.div>
       {user && (
         <Themed.div
@@ -69,10 +67,13 @@ const Navbar: FC = () => {
             justifyContent: ['space-between', 'flex-end'],
           }}
         >
-          <AddTodo />
+          <AddTodo userId={user.uid} />
           <Button
             sx={{ cursor: 'pointer' }}
-            onClick={() =>  firebase.auth.signOut().then(()=> router.push('/'))}
+            onClick={() =>  firebase.auth.signOut().then(()=> {
+              Cookies.remove('jwt')
+              router.push('/')
+            })}
           >
             Logout
           </Button>
