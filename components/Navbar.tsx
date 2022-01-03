@@ -33,8 +33,7 @@ const Navbar: FC = () => {
           left: '50%',
           position: 'absolute',
         }}
-      >
-      </Themed.div>
+      ></Themed.div>
       {user && (
         <Themed.div
           sx={{

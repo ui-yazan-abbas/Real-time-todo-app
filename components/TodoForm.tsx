@@ -75,7 +75,7 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           }}
           checked={todoDraft?.completed || false}
         />
-         <Switch
+        <Switch
           mb={3}
           label="Locked"
           onChange={(e) => {

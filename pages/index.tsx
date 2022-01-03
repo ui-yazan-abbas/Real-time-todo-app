@@ -36,13 +36,13 @@ const Home: NextPage = () => {
         alignItems: 'center',
       }}
     >
-    <Heading
+      <Heading
         sx={{
           padding: '2rem',
           fontSize: '40px',
         }}
       >
-        Welcome to <br/>
+        Welcome to <br />
         <Text
           sx={{
             color: '#6c9ed8',

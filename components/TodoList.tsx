@@ -47,76 +47,80 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
     } else {
       setEmptyState(false);
     }
-  }, [todos])
+  }, [todos]);
   return (
     <Box>
       {!emptyState && (
         <>
           <Button
             sx={{ cursor: 'pointer' }}
-            onClick={() => setCompleted(show => !show)}
+            onClick={() => setCompleted((show) => !show)}
           >
             Toggle Done/Undone
           </Button>
           {!completed && (
             <>
-              {todos?.filter(i => !i.completed).map((todo) => (
-                <TodoCard
-                  collaborators={omit(
-                    viewSessions[todo.id]?.collaborators,
-                    currentUser.uid
-                  )}
-                  onMouseOver={async ({ x, y }) => {
-                    addUserToSession(
-                      todo.id,
-                      currentUser.uid,
-                      x,
-                      y,
-                      currentUser.displayName
-                    );
-                  }}
-                  onMouseLeave={async () => {
-                    removeUserFromSession(todo.id, currentUser.uid);
-                  }}
-                  onDelete={deleteTodo}
-                  onUpdate={(draft) => {
-                    updateTodo(draft, currentUser.uid);
-                  }}
-                  key={todo.id}
-                  todo={todo}
-                ></TodoCard>
-              ))}
+              {todos
+                ?.filter((i) => !i.completed)
+                .map((todo) => (
+                  <TodoCard
+                    collaborators={omit(
+                      viewSessions[todo.id]?.collaborators,
+                      currentUser.uid
+                    )}
+                    onMouseOver={async ({ x, y }) => {
+                      addUserToSession(
+                        todo.id,
+                        currentUser.uid,
+                        x,
+                        y,
+                        currentUser.displayName
+                      );
+                    }}
+                    onMouseLeave={async () => {
+                      removeUserFromSession(todo.id, currentUser.uid);
+                    }}
+                    onDelete={deleteTodo}
+                    onUpdate={(draft) => {
+                      updateTodo(draft, currentUser.uid);
+                    }}
+                    key={todo.id}
+                    todo={todo}
+                  ></TodoCard>
+                ))}
             </>
           )}
 
           {completed && (
             <>
-              {todos?.filter(i => i.completed).map((todo) => (
-                <TodoCard
-                  collaborators={omit(
-                    viewSessions[todo.id]?.collaborators,
-                    currentUser.uid
-                  )}
-                  onMouseOver={async ({ x, y }) => {
-                    addUserToSession(
-                      todo.id,
-                      currentUser.uid,
-                      x,
-                      y,
-                      currentUser.displayName
-                    );
-                  }}
-                  onMouseLeave={async () => {
-                    removeUserFromSession(todo.id, currentUser.uid);
-                  }}
-                  onDelete={deleteTodo}
-                  onUpdate={(draft) => {
-                    updateTodo(draft, currentUser.uid);
-                  }}
-                  key={todo.id}
-                  todo={todo}
-                ></TodoCard>
-              ))}
+              {todos
+                ?.filter((i) => i.completed)
+                .map((todo) => (
+                  <TodoCard
+                    collaborators={omit(
+                      viewSessions[todo.id]?.collaborators,
+                      currentUser.uid
+                    )}
+                    onMouseOver={async ({ x, y }) => {
+                      addUserToSession(
+                        todo.id,
+                        currentUser.uid,
+                        x,
+                        y,
+                        currentUser.displayName
+                      );
+                    }}
+                    onMouseLeave={async () => {
+                      removeUserFromSession(todo.id, currentUser.uid);
+                    }}
+                    onDelete={deleteTodo}
+                    onUpdate={(draft) => {
+                      updateTodo(draft, currentUser.uid);
+                    }}
+                    key={todo.id}
+                    todo={todo}
+                  ></TodoCard>
+                ))}
             </>
           )}
         </>
@@ -133,14 +137,13 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
           }}
         >
           <Image
-            src='/../public/assets/2.png'
+            src="/../public/assets/2.png"
             alt="Profile Icon"
             width={650}
             height={500}
           />
         </Box>
       )}
-
     </Box>
   );
 };

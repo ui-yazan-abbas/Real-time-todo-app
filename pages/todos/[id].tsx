@@ -96,8 +96,9 @@ export default function TodoPage(props: TodoPageProps) {
           todo={todo}
         ></TodoCard>
       )}
-      <Link href="/"><a>&lt;-- back to the main page</a></Link>
-
+      <Link href="/">
+        <a>&lt;-- back to the main page</a>
+      </Link>
     </Box>
   );
 }
