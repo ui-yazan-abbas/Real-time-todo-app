@@ -12,6 +12,8 @@ NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
 NEXT_PUBLIC_FIREBASE_APP_ID=
 NEXT_PUBLIC_FIREBASE_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL=
+NEXT_PUBLIC_FIREBASE_PRIVATE_KEY=
 ```
 You will also need a firebase admin sdk json file by generating it following the guide on this link:
 https://firebase.google.com/docs/admin/setup#add_firebase_to_your_app
