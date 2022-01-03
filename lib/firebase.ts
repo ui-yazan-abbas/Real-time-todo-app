@@ -19,6 +19,5 @@ export default {
   database: firebase.firestore(),
   auth: firebase.auth(),
   firebase: firebase,
-  githubAuth: firebase.auth.GithubAuthProvider.PROVIDER_ID,
   googleAuth: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 };

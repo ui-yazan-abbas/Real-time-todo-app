@@ -4,23 +4,22 @@ import { FC, useEffect, useState } from 'react';
 import TodoCard from '@components/TodoCard';
 import * as uuid from 'uuid';
 import admin from 'firebase/app';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { TodoSession } from '@utils/types';
+import { Todo, TodoSession, UserInfo } from '@utils/types';
 import { ViewSessions } from '@utils/types';
 import { omit } from 'lodash';
-import { useRouter } from 'next/router';
 
-const TodosList: FC = () => {
-  const [todos, setTodos] = useState([]);
-  const [sessionId, setSessionId] = useState('');
+interface TodosListProps {
+  currentUser: UserInfo;
+}
+
+const TodosList: FC<TodosListProps> = ({ currentUser }) => {
+  const [todos, setTodos] = useState<Array<Todo>>([]);
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
-  const [user, loading, error] = useAuthState(firebase.auth);
-  const router = useRouter();
-  console.log('todo list',user);
 
   useEffect(() => {
     firebase.database
       .collection('todos')
+      .where('ownerId', '==', currentUser.uid)
       .orderBy('timestamp', 'desc')
       .onSnapshot((todos) => {
         const todosData: any = todos.docs.map((doc) => doc.data());
@@ -29,12 +28,7 @@ const TodosList: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('todo list use effect',user);
-    if (!user) router.push('/login');
     if (todos) {
-      if (!sessionId) {
-        setSessionId(uuid.v4());
-      }
       todos.forEach((todo: { id: string }) => {
         firebase.database
           .collection('sessions')
@@ -57,77 +51,66 @@ const TodosList: FC = () => {
   }, [todos]);
   return (
     <Box>
-      {loading && <h4> loading...</h4>}
-      {user && (
-        <>
-          {todos?.map((todo: any) => (
-            <TodoCard
-              collaborators={omit(
-                viewSessions[todo.id]?.collaborators,
-                sessionId
-              )}
-              onMouseOver={async ({ x, y }) => {
-                const currentSession = await firebase.database
-                  .collection('sessions')
-                  .doc(todo.id)
-                  .get();
-                if (!currentSession.exists) {
-                  await firebase.database
-                    .collection('sessions')
-                    .doc(todo.id)
-                    .set({
-                      id: todo.id,
-                      collaborators: {},
-                    });
-                }
+      {todos?.map((todo) => (
+        <TodoCard
+          collaborators={omit(
+            viewSessions[todo.id]?.collaborators,
+            currentUser.uid
+          )}
+          onMouseOver={async ({ x, y }) => {
+            const currentSession = await firebase.database
+              .collection('sessions')
+              .doc(todo.id)
+              .get();
+            if (!currentSession.exists) {
+              await firebase.database.collection('sessions').doc(todo.id).set({
+                id: todo.id,
+                collaborators: {},
+              });
+            }
 
-                await firebase.database
-                  .collection('sessions')
-                  .doc(todo.id)
-                  .update({
-                    collaborators: {
-                      [sessionId]: { x, y },
-                    },
-                  });
-              }}
-              onMouseLeave={async () => {
-                // dotted updates
-                const currentSession = await firebase.database
-                  .collection('sessions')
-                  .doc(todo.id)
-                  .get();
-                if (currentSession.exists) {
-                  await firebase.database
-                    .collection('sessions')
-                    .doc(todo.id)
-                    .update({
-                      [`collaborators.${sessionId}`]:
-                        admin.firestore.FieldValue.delete(),
-                    });
-                }
-              }}
-              onDelete={async (todo) => {
-                await firebase.database
-                  .collection('todos')
-                  .doc(todo.id)
-                  .delete();
-              }}
-              onUpdate={(updatedTodo) => {
-                firebase.database
-                  .collection('todos')
-                  .doc(todo.id)
-                  .update({
-                    ...updatedTodo,
-                    updatedAt: Date.now(),
-                    updatedBy: sessionId,
-                  });
-              }}
-              key={todo.id}
-              todo={todo}
-            ></TodoCard>
-          ))}
-        </>
-      )}
+            await firebase.database
+              .collection('sessions')
+              .doc(todo.id)
+              .update({
+                collaborators: {
+                  [currentUser.uid]: { x, y },
+                },
+              });
+          }}
+          onMouseLeave={async () => {
+            // dotted updates
+            const currentSession = await firebase.database
+              .collection('sessions')
+              .doc(todo.id)
+              .get();
+            if (currentSession.exists) {
+              await firebase.database
+                .collection('sessions')
+                .doc(todo.id)
+                .update({
+                  [`collaborators.${currentUser.uid}`]:
+                    admin.firestore.FieldValue.delete(),
+                });
+            }
+          }}
+          onDelete={async (todo) => {
+            await firebase.database.collection('todos').doc(todo.id).delete();
+          }}
+          onUpdate={(updatedTodo) => {
+            firebase.database
+              .collection('todos')
+              .doc(todo.id)
+              .update({
+                ...updatedTodo,
+                updatedAt: Date.now(),
+                updatedBy: currentUser.uid,
+              });
+          }}
+          key={todo.id}
+          todo={todo}
+        ></TodoCard>
+      ))}
     </Box>
   );
 };

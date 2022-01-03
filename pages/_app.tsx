@@ -1,22 +1,18 @@
-import Layout from '@components/Layout';
 import '@styles/globals.css';
+import Layout from '@components/Layout';
 import type { AppProps } from 'next/app';
 import firebase from '@lib/firebase';
 import { useEffect } from 'react';
-import Cookies from 'js-cookie';
+import { refreshToken } from '@lib/user';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [user, loading] = useAuthState(firebase.auth);
   useEffect(() => {
-    async function fetchToken() {
-      const idToken = await firebase.auth.currentUser?.getIdToken();
-      if (idToken) {
-        Cookies.set('jwt', idToken);
-      } else {
-        Cookies.remove('jwt');
-      }
+    if (!loading) {
+      refreshToken();
     }
-    fetchToken();
-  }, [firebase.auth.currentUser]);
+  }, [user, loading]);
   return (
     <Layout>
       <Component {...pageProps} />

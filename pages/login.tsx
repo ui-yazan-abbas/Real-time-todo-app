@@ -4,20 +4,41 @@ import firebase from '@lib/firebase';
 import { UserInfo } from '@utils/types';
 import { useRouter } from 'next/router';
 import { Box, Heading } from 'theme-ui';
+import { refreshToken } from '@lib/user';
+import { useEffect } from 'react';
 
 const login: NextPage = () => {
   const router = useRouter();
 
   const onSuccessfulSignin = async (userInfo: UserInfo) => {
     const { email, displayName, uid } = userInfo;
-
     await firebase.database.collection('users').doc(uid).set({
       email,
       displayName,
       uid,
       id: uid,
     });
+    await refreshToken();
+    let returnTo = '/todos';
+    try {
+      returnTo = localStorage.getItem('returnTo') || returnTo;
+    } catch (e) {
+      console.warn(' Error reading value from localstorage');
+    }
+    router.push(returnTo);
   };
+
+  useEffect(() => {
+    console.log(' router.query.returnTo ', router.query.returnTo);
+    if (router.query.returnTo) {
+      try {
+        localStorage.setItem('returnTo', String(router.query.returnTo));
+      } catch (error) {
+        // incognito mode
+        console.warn(' Error setting value in localstorage');
+      }
+    }
+  }, [router.query.returnTo]);
 
   return (
     <Box
@@ -35,14 +56,10 @@ const login: NextPage = () => {
           // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function or I can use them both
           // display GitHub as auth providers.
           signInSuccessUrl: '/todos',
-          signInOptions: [
-            firebase.googleAuth,
-          ],
+          signInOptions: [firebase.googleAuth],
           callbacks: {
             signInSuccessWithAuthResult(result) {
               onSuccessfulSignin(result.user);
-              console.log({result});
-              router.push('/todos');
               return false;
             },
           },

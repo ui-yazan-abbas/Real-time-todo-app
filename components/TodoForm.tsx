@@ -33,6 +33,7 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           onSubmit(todoDraft);
           setTodoDraft({});
         } else {
+          console.log(' invalid ?? ', todoDraft);
           // invalid, prompt for a title
         }
       }}
@@ -42,11 +43,11 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
       </VisuallyHidden>
       <Input
         placeholder="Todo Title"
-        onChange={(e) => {
-          setTodoDraft({
-            ...todoDraft,
-            title: e.target.value,
-          });
+        onChange={(event) => {
+          setTodoDraft((draft) => ({
+            ...draft,
+            title: event.target.value,
+          }));
         }}
         defaultValue={todoDraft?.title}
         name="title"
@@ -59,10 +60,10 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
       </VisuallyHidden>
       <RichTextEditor
         onChange={(value) => {
-          setTodoDraft({
-            ...todoDraft,
+          setTodoDraft((draft) => ({
+            ...draft,
             description: value,
-          });
+          }));
         }}
         value={todoDraft?.description || ''}
       />

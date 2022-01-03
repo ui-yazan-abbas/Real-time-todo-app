@@ -2,13 +2,13 @@
 /** @jsx jsx */
 import { FC } from 'react';
 import { ThemeProvider, jsx } from 'theme-ui';
-import themesMap from '@utils/theme';
+import { sketchy } from '@utils/theme';
 import Navbar from './Navbar';
 import PageHead from './PageHead';
 
 const Layout: FC = ({ children }) => {
   return (
-    <ThemeProvider theme={themesMap.sketchy}>
+    <ThemeProvider theme={sketchy}>
       <PageHead />
       <Navbar />
       <div
