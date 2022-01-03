@@ -42,10 +42,11 @@ const Home: NextPage = () => {
           fontSize: '40px',
         }}
       >
-        Welcome to
+        Welcome to <br/>
         <Text
           sx={{
             color: '#6c9ed8',
+            fontSize: '50px',
           }}
         >
           Ubiquiti Todo App

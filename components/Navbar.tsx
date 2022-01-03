@@ -51,12 +51,6 @@ const Navbar: FC = () => {
           position: 'absolute',
         }}
       >
-        <Themed.h1
-          sx={{
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-        >Real time todo app</Themed.h1>
       </Themed.div>
       {user && (
         <Themed.div
