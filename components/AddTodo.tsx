@@ -3,12 +3,11 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Themed, jsx, Message } from 'theme-ui';
-import { Cross, Plus } from '@assets/icons';
+import { FiX, FiPlus } from 'react-icons/fi';
 import { ExpandModal } from 'react-spring-modal';
 import 'react-spring-modal/styles.css';
 import TodoForm from './TodoForm';
-import * as uuid from 'uuid';
-import firebase from '@lib/firebase';
+import { createTodo } from '@lib/todos';
 
 interface AddTodoProps {
   userId: string;
@@ -19,7 +18,6 @@ const AddTodo: FC<AddTodoProps> = ({ userId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState('');
-
   useEffect(() => {
     setIsOpen(false);
   }, [router.asPath.split('?')[0]]);
@@ -47,17 +45,8 @@ const AddTodo: FC<AddTodoProps> = ({ userId }) => {
         {message && <Message>{message}</Message>}
         <TodoForm
           onSubmit={async (todo) => {
-            const id = uuid.v4();
             setMessage('Creating your todo');
-            await firebase.database
-              .collection('todos')
-              .doc(id)
-              .set({
-                ...todo,
-                id,
-                timestamp: Date.now(),
-                ownerId: userId,
-              });
+            await createTodo(todo, userId);
             setMessage('Done!');
             setTimeout(() => {
               setMessage('');
@@ -75,7 +64,7 @@ const AddTodo: FC<AddTodoProps> = ({ userId }) => {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="add"
       >
-        {isOpen ? <Cross /> : <Plus />}
+        {isOpen ? <FiX /> : <FiPlus />}
       </Themed.div>
     </>
   );

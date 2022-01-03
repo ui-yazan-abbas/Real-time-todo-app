@@ -1,12 +1,9 @@
+import { isValidTodo } from '@lib/todos';
 import { Todo } from '@utils/types';
 import React, { FC, useState } from 'react';
 import { Box, Label, Input, Switch, Button, Card } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import VisuallyHidden from './VisuallyHidden';
-
-function isValidTodo(todo: Partial<Todo>): todo is Todo {
-  return typeof todo.title !== 'undefined';
-}
 
 interface Props {
   todo?: Todo;
@@ -33,7 +30,6 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           onSubmit(todoDraft);
           setTodoDraft({});
         } else {
-          console.log(' invalid ?? ', todoDraft);
           // invalid, prompt for a title
         }
       }}
@@ -78,6 +74,17 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
             });
           }}
           checked={todoDraft?.completed || false}
+        />
+         <Switch
+          mb={3}
+          label="Locked"
+          onChange={(e) => {
+            setTodoDraft({
+              ...todoDraft,
+              locked: e.target.checked,
+            });
+          }}
+          checked={todoDraft?.locked || false}
         />
       </Box>
       <Button mt={4}>Add</Button>

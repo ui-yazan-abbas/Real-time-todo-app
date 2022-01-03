@@ -1,12 +1,18 @@
-import firebase from '@lib/firebase';
-import { Box } from 'theme-ui';
+import { Box, Button, jsx } from 'theme-ui';
 import { FC, useEffect, useState } from 'react';
 import TodoCard from '@components/TodoCard';
-import * as uuid from 'uuid';
-import admin from 'firebase/app';
-import { Todo, TodoSession, UserInfo } from '@utils/types';
+import { Todo, UserInfo } from '@utils/types';
 import { ViewSessions } from '@utils/types';
 import { omit } from 'lodash';
+import {
+  addUserToSession,
+  deleteTodo,
+  removeUserFromSession,
+  subscribeToListChanges,
+  subscribeToViewingSesssions,
+  updateTodo,
+} from '@lib/todos';
+import Image from 'next/image';
 
 interface TodosListProps {
   currentUser: UserInfo;
@@ -15,102 +21,126 @@ interface TodosListProps {
 const TodosList: FC<TodosListProps> = ({ currentUser }) => {
   const [todos, setTodos] = useState<Array<Todo>>([]);
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
-
+  const [completed, setCompleted] = useState(false);
+  const [emptyState, setEmptyState] = useState(false);
+  console.log(' currentUser ', currentUser);
   useEffect(() => {
-    firebase.database
-      .collection('todos')
-      .where('ownerId', '==', currentUser.uid)
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((todos) => {
-        const todosData: any = todos.docs.map((doc) => doc.data());
-        setTodos(todosData);
-      });
+    return subscribeToListChanges(currentUser, setTodos);
   }, []);
 
   useEffect(() => {
-    if (todos) {
-      todos.forEach((todo: { id: string }) => {
-        firebase.database
-          .collection('sessions')
-          .doc(todo.id)
-          .onSnapshot((session) => {
-            setViewSessions((oldValue) => {
-              const sessionData = session.data();
-              if (sessionData) {
-                return {
-                  ...oldValue,
-                  [todo.id]: session.data() as TodoSession,
-                };
-              }
-              delete oldValue[todo.id];
-              return oldValue;
-            });
-          });
-      });
-    }
+    return subscribeToViewingSesssions(todos, (sessions) => {
+      const sessionsMappedByTodo = sessions.reduce((acc, session) => {
+        return {
+          ...acc,
+          [session.id]: session,
+        };
+      }, {});
+      console.log(' here ', sessions);
+      setViewSessions(sessionsMappedByTodo);
+    });
   }, [todos]);
+
+  useEffect(() => {
+    if (todos?.length === 0) {
+      setEmptyState(true);
+    } else {
+      setEmptyState(false);
+    }
+  }, [todos])
   return (
     <Box>
-      {todos?.map((todo) => (
-        <TodoCard
-          collaborators={omit(
-            viewSessions[todo.id]?.collaborators,
-            currentUser.uid
+      {!emptyState && (
+        <>
+          <Button
+            sx={{ cursor: 'pointer' }}
+            onClick={() => setCompleted(show => !show)}
+          >
+            Toggle Done/Undone
+          </Button>
+          {!completed && (
+            <>
+              {todos?.filter(i => !i.completed).map((todo) => (
+                <TodoCard
+                  collaborators={omit(
+                    viewSessions[todo.id]?.collaborators,
+                    currentUser.uid
+                  )}
+                  onMouseOver={async ({ x, y }) => {
+                    addUserToSession(
+                      todo.id,
+                      currentUser.uid,
+                      x,
+                      y,
+                      currentUser.displayName
+                    );
+                  }}
+                  onMouseLeave={async () => {
+                    removeUserFromSession(todo.id, currentUser.uid);
+                  }}
+                  onDelete={deleteTodo}
+                  onUpdate={(draft) => {
+                    updateTodo(draft, currentUser.uid);
+                  }}
+                  key={todo.id}
+                  todo={todo}
+                ></TodoCard>
+              ))}
+            </>
           )}
-          onMouseOver={async ({ x, y }) => {
-            const currentSession = await firebase.database
-              .collection('sessions')
-              .doc(todo.id)
-              .get();
-            if (!currentSession.exists) {
-              await firebase.database.collection('sessions').doc(todo.id).set({
-                id: todo.id,
-                collaborators: {},
-              });
-            }
 
-            await firebase.database
-              .collection('sessions')
-              .doc(todo.id)
-              .update({
-                collaborators: {
-                  [currentUser.uid]: { x, y },
-                },
-              });
+          {completed && (
+            <>
+              {todos?.filter(i => i.completed).map((todo) => (
+                <TodoCard
+                  collaborators={omit(
+                    viewSessions[todo.id]?.collaborators,
+                    currentUser.uid
+                  )}
+                  onMouseOver={async ({ x, y }) => {
+                    addUserToSession(
+                      todo.id,
+                      currentUser.uid,
+                      x,
+                      y,
+                      currentUser.displayName
+                    );
+                  }}
+                  onMouseLeave={async () => {
+                    removeUserFromSession(todo.id, currentUser.uid);
+                  }}
+                  onDelete={deleteTodo}
+                  onUpdate={(draft) => {
+                    updateTodo(draft, currentUser.uid);
+                  }}
+                  key={todo.id}
+                  todo={todo}
+                ></TodoCard>
+              ))}
+            </>
+          )}
+        </>
+      )}
+
+      {emptyState && (
+        <Box
+          sx={{
+            minHeight: '80vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          onMouseLeave={async () => {
-            // dotted updates
-            const currentSession = await firebase.database
-              .collection('sessions')
-              .doc(todo.id)
-              .get();
-            if (currentSession.exists) {
-              await firebase.database
-                .collection('sessions')
-                .doc(todo.id)
-                .update({
-                  [`collaborators.${currentUser.uid}`]:
-                    admin.firestore.FieldValue.delete(),
-                });
-            }
-          }}
-          onDelete={async (todo) => {
-            await firebase.database.collection('todos').doc(todo.id).delete();
-          }}
-          onUpdate={(updatedTodo) => {
-            firebase.database
-              .collection('todos')
-              .doc(todo.id)
-              .update({
-                ...updatedTodo,
-                updatedAt: Date.now(),
-                updatedBy: currentUser.uid,
-              });
-          }}
-          key={todo.id}
-          todo={todo}
-        ></TodoCard>
-      ))}
+        >
+          <Image
+            src='/../public/assets/2.png'
+            alt="Profile Icon"
+            width={650}
+            height={500}
+          />
+        </Box>
+      )}
+
     </Box>
   );
 };

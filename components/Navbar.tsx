@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { FC } from 'react';
-import Link from 'next/link';
 import { Button, jsx, Themed } from 'theme-ui';
 import AddTodo from './AddTodo';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -19,6 +18,7 @@ const Navbar: FC = () => {
       sx={{
         margin: `0 auto`,
         maxWidth: 1920,
+        minHeight: 60,
         py: 2,
         px: 2,
         display: 'flex',
@@ -27,23 +27,6 @@ const Navbar: FC = () => {
         position: 'relative',
       }}
     >
-      <Themed.div
-        sx={{
-          display: ['none', 'none', 'flex'],
-          flexBasis: 0,
-          minWidth: 240,
-          justifyContent: 'space-evenly',
-        }}
-      >
-        <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/">
-          Home
-        </Themed.a>
-        {!user && !loading && (
-          <Themed.a sx={{ padding: 10, minWidth: 90 }} as={Link} href="/login">
-            Log in
-          </Themed.a>
-        )}
-      </Themed.div>
       <Themed.div
         sx={{
           transform: 'translateX(-50%)',
@@ -58,16 +41,18 @@ const Navbar: FC = () => {
             display: 'flex',
             minWidth: 140,
             width: '100%',
-            justifyContent: ['space-between', 'flex-end'],
+            justifyContent: 'space-between',
           }}
         >
           <AddTodo userId={user.uid} />
           <Button
             sx={{ cursor: 'pointer' }}
-            onClick={() =>  firebase.auth.signOut().then(()=> {
-              Cookies.remove('jwt')
-              router.push('/')
-            })}
+            onClick={() =>
+              firebase.auth.signOut().then(() => {
+                Cookies.remove('jwt');
+                router.push('/');
+              })
+            }
           >
             Logout
           </Button>
