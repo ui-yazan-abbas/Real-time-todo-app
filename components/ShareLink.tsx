@@ -8,9 +8,11 @@ import {
   EmailIcon,
 } from 'react-share';
 import { Box } from 'theme-ui';
+
 interface Props {
   id: string;
 }
+
 const ShareLink: FC<Props> = ({ id }) => {
   const url = `https://ubiquiti-real-time-todo-app.vercel.app/todos/${id}`;
   return (

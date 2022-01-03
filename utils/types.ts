@@ -9,8 +9,15 @@ export interface Todo {
   id: string;
 }
 
+export interface Collaborator {
+  x: number;
+  y: number;
+  displayName: string;
+}
+
 export interface TodoSession {
-  collaborators: Record<string, { x: number; y: number }>;
+  id: string;
+  collaborators: Record<string, Collaborator>;
 }
 
 export interface UserInfo {

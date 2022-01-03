@@ -21,21 +21,21 @@ const login: NextPage = () => {
     await refreshToken();
     let returnTo = '/todos';
     try {
-      returnTo = localStorage.getItem('returnTo') || returnTo;
+      returnTo = sessionStorage.getItem('returnTo') || returnTo;
+      sessionStorage.removeItem('returnTo');
     } catch (e) {
-      console.warn(' Error reading value from localstorage');
+      console.warn(' Error reading value from sessionStorage');
     }
     router.push(returnTo);
   };
 
   useEffect(() => {
-    console.log(' router.query.returnTo ', router.query.returnTo);
     if (router.query.returnTo) {
       try {
-        localStorage.setItem('returnTo', String(router.query.returnTo));
+        sessionStorage.setItem('returnTo', String(router.query.returnTo));
       } catch (error) {
         // incognito mode
-        console.warn(' Error setting value in localstorage');
+        console.warn(' Error setting value in sessionStorage');
       }
     }
   }, [router.query.returnTo]);

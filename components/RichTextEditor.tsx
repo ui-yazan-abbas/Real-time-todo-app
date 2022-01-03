@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import { useRef, useEffect, useState, useMemo, FC } from 'react';
 import { AspectRatio, Box, useThemeUI, Embed } from 'theme-ui';
 import { throttle } from 'lodash';
 import Editor from 'rich-markdown-editor';
 
-const YoutubeEmbed: React.FC<{
+const YoutubeEmbed: FC<{
   attrs: { href: string; matches: string[] };
   isSelected: boolean;
 }> = ({ attrs, isSelected }) => {
@@ -52,7 +52,7 @@ interface TextProps {
   onChange: (value: string) => void;
 }
 
-const RichTextEditor: React.FC<TextProps> = ({ value, onChange }) => {
+const RichTextEditor: FC<TextProps> = ({ value, onChange }) => {
   const editorRef = useRef<Editor>(null);
   const [remoteUpdates, setRemoteUpdates] = useState(0);
   useEffect(() => {
