@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             color: '#6c9ed8',
             fontSize: '50px',
           }}
-        >
+        > 
           Ubiquiti Todo App
         </Text>
       </Heading>
