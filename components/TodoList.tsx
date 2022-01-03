@@ -137,7 +137,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
           }}
         >
           <Image
-            src="/../public/assets/2.png"
+            src="/assets/2.png"
             alt="Profile Icon"
             width={650}
             height={500}
