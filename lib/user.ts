@@ -13,7 +13,7 @@ export async function getCurrentUser(
   const baseUrl = `${protocol}://${headers['host']}`;
 
   try {
-    const currentUserResponse = await fetch(`${baseUrl}/api/users/me`, {
+    const currentUserResponse = await fetch(`${baseUrl}/api/user/me`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

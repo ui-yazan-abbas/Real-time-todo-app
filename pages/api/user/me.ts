@@ -16,7 +16,6 @@ if (!admin.apps.length) {
   });
 }
 
-//Rest Api
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const jwt = req.headers.authorization?.split(`Bearer `)[1];
   if (jwt) {
