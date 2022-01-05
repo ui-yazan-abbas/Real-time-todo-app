@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Themed, jsx, Message } from 'theme-ui';
 import { FiX, FiPlus } from 'react-icons/fi';
