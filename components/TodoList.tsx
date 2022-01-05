@@ -86,7 +86,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
                     }}
                     key={todo.id}
                     todo={todo}
-                  ></TodoCard>
+                  />
                 ))}
             </>
           )}
