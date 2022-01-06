@@ -36,7 +36,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
           [session.id]: session,
         };
       }, {});
-      
+
       setViewSessions(sessionsMappedByTodo);
     });
   }, [todos]);
