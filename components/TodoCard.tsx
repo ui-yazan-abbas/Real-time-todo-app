@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 import Link from 'next/link';
-import { FiX, FiShare  } from 'react-icons/fi';
+import { FiX, FiShare } from 'react-icons/fi';
 import { Switch, Box, Card, IconButton } from 'theme-ui';
 import { throttle } from 'lodash';
 import { Collaborator, Todo } from '@utils/types';
@@ -106,6 +106,7 @@ const TodoCard: FC<Props> = ({
 
       <Box sx={{ wordWrap: 'break-word' }}>
         <Box
+          data-cy="todo-card"
           p={2}
           sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
         >
@@ -135,16 +136,18 @@ const TodoCard: FC<Props> = ({
               });
             }}
           ></Switch>
-          <Switch
-            label="locked"
-            checked={todo.locked}
-            onChange={(event) => {
-              onUpdate({
-                ...todo,
-                locked: event.target.checked,
-              });
-            }}
-          ></Switch>
+          <Box data-cy="lock-button">
+            <Switch
+              label="locked"
+              checked={todo.locked}
+              onChange={(event) => {
+                onUpdate({
+                  ...todo,
+                  locked: event.target.checked,
+                });
+              }}
+            ></Switch>
+          </Box>
         </Box>
       </Box>
     </Card>
@@ -152,3 +155,4 @@ const TodoCard: FC<Props> = ({
 };
 
 export default TodoCard;
+
