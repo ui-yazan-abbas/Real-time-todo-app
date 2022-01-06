@@ -10,14 +10,11 @@ export default async function getAllUsers(
     res.status(400).json({ Error: 'only GET or POST request are allowed' });
   }
 
-  const { currentUser } = await getCurrentUser(
-    req.cookies,
-    req.headers
-  );
+  const { currentUser } = await getCurrentUser(req.cookies, req.headers);
   if (!currentUser) {
-    res.status(401).json({Error: 'unAuthorized Attempt'})
+    res.status(401).json({ Error: 'unAuthorized Attempt' });
   }
- 
+
   if (req.method === 'POST') {
     await firebase.database.collection('users').doc().set({
       email: req.body.email,

@@ -10,6 +10,10 @@
     "cypress": "cypress open",
     "dev-cypress": "next dev & cypress open"
   },
+  "pre-commit": [
+    "prettier",
+    "cypress"
+  ],
   "prettier": {
     "semi": true,
     "singleQuote": true

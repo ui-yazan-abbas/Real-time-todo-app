@@ -31,7 +31,7 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           onSubmit(todoDraft);
           setTodoDraft({});
         } else {
-          log.info('must at least add a title to create a todo')
+          log.info('must at least add a title to create a todo');
         }
       }}
     >
