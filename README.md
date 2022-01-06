@@ -1,8 +1,9 @@
 ## Real-time todo App
 I created a full stack todo app with a real-time collaberation between users using TypeScript with Nextjs, Node and Firebase.
 
+![Skärmklipp](https://user-images.githubusercontent.com/77113737/148399909-cb461e75-6a1f-46e5-8b60-73339902d3ee.JPG)
 
-![Skärmklipp](https://user-images.githubusercontent.com/77113737/147872893-8b42ea7f-5400-479a-90a7-13ae7485d2d4.JPG)
+
 ## Running the App
 After cloning the app you will need a .env file containing the following:
 ```bash
