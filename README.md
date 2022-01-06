@@ -3,6 +3,9 @@ I created a full stack todo app with a real-time collaberation between users usi
 
 ![Skärmklipp](https://user-images.githubusercontent.com/77113737/148399909-cb461e75-6a1f-46e5-8b60-73339902d3ee.JPG)
 
+## Demo Video
+
+https://www.loom.com/share/212385886fc74844af8d705b2459ba50
 
 ## Running the App
 After cloning the app you will need a .env file containing the following:
@@ -27,10 +30,6 @@ npm run dev
 yarn dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-## Demo Video
-
-https://www.loom.com/share/212385886fc74844af8d705b2459ba50
-
 
 ## Why Nextjs
 - Server Side Rendering (SSR):
