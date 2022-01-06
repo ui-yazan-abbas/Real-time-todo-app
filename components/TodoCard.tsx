@@ -5,8 +5,9 @@ import RichTextEditor from './RichTextEditor';
 import { throttle } from 'lodash';
 import { Collaborator, Todo } from '@utils/types';
 import Link from 'next/link';
-import ShareLink from './ShareLink';
 import CollaberatorLayer from './CollaberatorLayer';
+import { FiShare } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 interface Props {
   todo: Todo;
@@ -64,106 +65,90 @@ const TodoCard: FC<Props> = ({
     }
   }, [todo]);
   return (
-    <>
-      {lock && (
-        <Card bg={backgroundColor} p={3} m={4}>
-          <Box
-            data-cy="todo-card"
-            p={2}
-            sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
-          >
-            {todo.title}
-          </Box>
-          <Box p={2} sx={{ fontSize: 18 }}>
-            <Text>{todo.description}</Text>
-          </Box>
-          <Box p={2} data-cy="lock-button">
-            <Switch
-              label="locked"
-              checked={todo.locked}
-              onChange={(event) => {
-                onUpdate({
-                  ...todo,
-                  locked: event.target.checked,
-                });
-              }}
-            ></Switch>
-          </Box>
-        </Card>
-      )}
-      {!lock && (
-        <Card
-          ref={cardRef}
-          onMouseMove={broadcastMousLocation}
-          onMouseLeave={throttle(onMouseLeave, 100, { leading: false })}
-          bg={backgroundColor}
-          p={3}
-          m={4}
-          sx={{
-            boxShadow: 'none',
-            position: 'relative',
-            ':hover': {
-              boxShadow: '15px 24px 25px -18px rgb(0 0 0 / 40%)',
-            },
-          }}
+    <Card
+      ref={cardRef}
+      onMouseMove={broadcastMousLocation}
+      onMouseLeave={throttle(onMouseLeave, 100, { leading: false })}
+      bg={backgroundColor}
+      p={3}
+      m={4}
+      sx={{
+        boxShadow: 'none',
+        position: 'relative',
+        ':hover': {
+          boxShadow: '15px 24px 25px -18px rgb(0 0 0 / 40%)',
+        },
+      }}
+    >
+      <CollaberatorLayer cardRef={cardRef} collaborators={collaborators} />
+      <IconButton
+        disabled={lock}
+        sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 10 }}
+        onClick={async () => {
+          // todo loading indicator
+          // todo test if current user can delete
+          onDelete(todo);
+        }}
+        data-cy="delete-button"
+      >
+        <FiX />
+      </IconButton>
+      <IconButton
+        sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 30 }}
+        onClick={async () => {
+          const url = `https://ubiquiti-real-time-todo-app.vercel.app/todos/${todo.id}`;
+          await navigator.clipboard.writeText(url);
+          toast('Copied to clipboard', { type: 'info' });
+        }}
+        data-cy="share-button"
+      >
+        <FiShare />
+      </IconButton>
+
+      <Box sx={{ wordWrap: 'break-word' }}>
+        <Box
+          p={2}
+          sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
         >
-          <CollaberatorLayer cardRef={cardRef} collaborators={collaborators} />
-          <IconButton
-            sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 10 }}
-            onClick={async () => {
-              // todo loading indicator
-              // todo test if current user can delete
-              onDelete(todo);
+          <Link href={`/todos/${todo.id}`}>{todo.title}</Link>
+        </Box>
+        <Box p={2} sx={{ fontSize: 18 }} data-cy="description-space">
+          <RichTextEditor
+            readonly={lock}
+            onChange={(newDescription) => {
+              onUpdate({
+                ...todo,
+                description: newDescription,
+              });
             }}
-            data-cy="delete-button"
-          >
-            <FiX />
-          </IconButton>
-          <Box sx={{ wordWrap: 'break-word' }}>
-            <Box
-              p={2}
-              sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
-            >
-              <Link href={`/todos/${todo.id}`}>{todo.title}</Link>
-            </Box>
-            <Box p={2} sx={{ fontSize: 18 }} data-cy="description-space">
-              <RichTextEditor
-                onChange={(newDescription) => {
-                  onUpdate({
-                    ...todo,
-                    description: newDescription,
-                  });
-                }}
-                value={todo.description}
-              />
-            </Box>
-            <Box p={2} data-cy="switches">
-              <Switch
-                label="completed"
-                checked={todo.completed}
-                onChange={(event) => {
-                  onUpdate({
-                    ...todo,
-                    completed: event.target.checked,
-                  });
-                }}
-              ></Switch>
-              <Switch
-                label="locked"
-                checked={todo.locked}
-                onChange={(event) => {
-                  onUpdate({
-                    ...todo,
-                    locked: event.target.checked,
-                  });
-                }}
-              ></Switch>
-            </Box>
-          </Box>
-          <ShareLink id={todo.id} />
-        </Card>
-      )}
-    </>
+            value={todo.description}
+          />
+        </Box>
+        <Box p={2} data-cy="switches">
+          <Switch
+            disabled={lock}
+            label="completed"
+            checked={todo.completed}
+            onChange={(event) => {
+              onUpdate({
+                ...todo,
+                completed: event.target.checked,
+              });
+            }}
+          ></Switch>
+          <Switch
+            label="locked"
+            checked={todo.locked}
+            onChange={(event) => {
+              onUpdate({
+                ...todo,
+                locked: event.target.checked,
+              });
+            }}
+          ></Switch>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 
