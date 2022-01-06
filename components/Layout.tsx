@@ -5,6 +5,8 @@ import { ThemeProvider, jsx } from 'theme-ui';
 import Navbar from './Navbar';
 import PageHead from './PageHead';
 import { sketchy } from '@theme-ui/presets';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout: FC = ({ children }) => {
   return (
@@ -20,6 +22,7 @@ const Layout: FC = ({ children }) => {
         }}
       >
         <main>{children}</main>
+        <ToastContainer />
       </div>
     </ThemeProvider>
   );

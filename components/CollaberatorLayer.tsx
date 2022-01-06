@@ -16,7 +16,7 @@ const CollaberatorLayer: FC<{
     }
   }, [cardRef.current]);
   return (
-    <Box m={4} p={3}>
+    <>
       {mice.map(({ x, y, displayName }) => (
         <Box
           key={`${x}:${y}`}
@@ -31,7 +31,7 @@ const CollaberatorLayer: FC<{
           <FiMousePointer />
         </Box>
       ))}
-    </Box>
+    </>
   );
 };
 
