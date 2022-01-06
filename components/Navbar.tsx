@@ -43,8 +43,11 @@ const Navbar: FC = () => {
             justifyContent: 'space-between',
           }}
         >
-          <AddTodo userId={user.uid} />
+          <div data-cy="plus-sign">
+            <AddTodo userId={user.uid} />
+          </div>
           <Button
+            data-cy="logout-button"
             sx={{ cursor: 'pointer' }}
             onClick={() =>
               firebase.auth.signOut().then(() => {

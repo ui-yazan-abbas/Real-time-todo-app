@@ -23,7 +23,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
   const [viewSessions, setViewSessions] = useState<ViewSessions>({});
   const [completed, setCompleted] = useState(false);
   const [emptyState, setEmptyState] = useState(false);
-  console.log(' currentUser ', currentUser);
+
   useEffect(() => {
     return subscribeToListChanges(currentUser, setTodos);
   }, []);
@@ -36,7 +36,6 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
           [session.id]: session,
         };
       }, {});
-      console.log(' here ', sessions);
       setViewSessions(sessionsMappedByTodo);
     });
   }, [todos]);
@@ -86,7 +85,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
                     }}
                     key={todo.id}
                     todo={todo}
-                  />
+                  ></TodoCard>
                 ))}
             </>
           )}

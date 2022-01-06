@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import { Box, Label, Input, Switch, Button, Card } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import VisuallyHidden from './VisuallyHidden';
+import log from '@logger/index';
 
 interface Props {
   todo?: Todo;
@@ -30,7 +31,7 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           onSubmit(todoDraft);
           setTodoDraft({});
         } else {
-          // invalid, prompt for a title
+          log.info('must at least add a title to create a todo');
         }
       }}
     >
@@ -38,6 +39,7 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
         <Label htmlFor="title">Title</Label>
       </VisuallyHidden>
       <Input
+        data-cy="title-input"
         placeholder="Todo Title"
         onChange={(event) => {
           setTodoDraft((draft) => ({
@@ -87,7 +89,9 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
           checked={todoDraft?.locked || false}
         />
       </Box>
-      <Button mt={4}>Add</Button>
+      <Button mt={4} data-cy="add-todo-button">
+        Add
+      </Button>
     </Card>
   );
 };

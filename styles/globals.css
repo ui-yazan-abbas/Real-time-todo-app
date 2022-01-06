@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --reach-dialog: 1;
+}

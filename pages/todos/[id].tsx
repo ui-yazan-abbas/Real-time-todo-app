@@ -46,8 +46,6 @@ interface TodoPageProps {
   currentUser: UserInfo;
 }
 
-// todo export this from lib/firestore
-
 export default function TodoPage(props: TodoPageProps) {
   const router = useRouter();
   const [todo, setTodo] = useState<Todo>();
