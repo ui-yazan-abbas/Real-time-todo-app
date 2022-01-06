@@ -155,4 +155,3 @@ const TodoCard: FC<Props> = ({
 };
 
 export default TodoCard;
-
