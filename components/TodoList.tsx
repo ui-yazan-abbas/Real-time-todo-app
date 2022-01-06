@@ -1,4 +1,4 @@
-import { Box, Button, Switch } from 'theme-ui';
+import { Box, Switch } from 'theme-ui';
 import { FC, useEffect, useState } from 'react';
 import TodoCard from '@components/TodoCard';
 import { Todo, UserInfo } from '@utils/types';

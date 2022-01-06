@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useMemo, FC } from 'react';
-import { AspectRatio, Box, useThemeUI, Embed } from 'theme-ui';
+import { AspectRatio, Box, Embed } from 'theme-ui';
 import { throttle } from 'lodash';
 import Editor from 'rich-markdown-editor';
 

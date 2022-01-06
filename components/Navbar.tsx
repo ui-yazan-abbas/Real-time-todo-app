@@ -1,12 +1,12 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { FC } from 'react';
-import { Button, jsx, Themed } from 'theme-ui';
-import AddTodo from './AddTodo';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from '@lib/firebase';
 import { useRouter } from 'next/router';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button, jsx, Themed } from 'theme-ui';
 import Cookies from 'js-cookie';
+import AddTodo from './AddTodo';
+import firebase from '@lib/firebase';
 
 const Navbar: FC = () => {
   const [user, loading, error] = useAuthState(firebase.auth);

@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { NextPage } from 'next';
 import firebase from '@lib/firebase';
 import { UserInfo } from '@utils/types';
 import { useRouter } from 'next/router';
-import { Box, Heading } from 'theme-ui';
+import { Box } from 'theme-ui';
 import { refreshToken } from '@lib/user';
-import { useEffect } from 'react';
 
 const login: NextPage = () => {
   const router = useRouter();
