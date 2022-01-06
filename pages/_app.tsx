@@ -1,10 +1,10 @@
 import '@styles/globals.css';
-import Layout from '@components/Layout';
-import type { AppProps } from 'next/app';
-import firebase from '@lib/firebase';
 import { useEffect } from 'react';
-import { refreshToken } from '@lib/user';
+import type { AppProps } from 'next/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Layout from '@components/Layout';
+import firebase from '@lib/firebase';
+import { refreshToken } from '@lib/user';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, loading] = useAuthState(firebase.auth);
