@@ -1,0 +1,18 @@
+module.exports = {
+  getStartedButton: '[data-cy=get-started-button]',
+  addTodoButton: '[data-cy=plus-sign]',
+  titleInput: '[data-cy=title-input]',
+  submitTodo: '[data-cy=add-todo-button]',
+  todoCard: '[class=css-1ie3f4j]',
+  deleteButton: '[data-cy=delete-button]',
+  descriptionInput: '[data-cy=description-space]',
+  title: 'Test Title',
+  description: 'Test Descr.',
+  switches: '[data-cy=switches]',
+  lockButton: '[data-cy=lock-button]',
+  completedButton: '[class=css-1up1lfj]',
+  toggleButton: 'Toggle Done/Undone',
+  form: '[class=css-1909024]',
+  logoutButton: '[data-cy=logout-button]',
+  homeTitle: '[class=css-vfrfzd-Home]',
+};

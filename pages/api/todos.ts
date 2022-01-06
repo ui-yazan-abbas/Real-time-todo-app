@@ -1,12 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import firebase from '@lib/firebase';
+import { getCurrentUser } from '@lib/user';
 
-//Rest Api
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET' && req.method !== 'POST') {
-    res.status(400).json({ Error: 'bad request' });
+    res.status(400).json({ Error: 'only GET or POST request are allowed' });
   }
 
+  const { currentUser } = await getCurrentUser(
+    req.cookies,
+    req.headers
+  );
+  if (!currentUser) {
+    res.status(401).json({Error: 'unAuthorized Attempt'})
+  }
+ 
   if (req.method === 'POST') {
     await firebase.database.collection('todos').doc().set({
       title: req.body.title,

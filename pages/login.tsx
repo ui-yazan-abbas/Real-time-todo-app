@@ -42,6 +42,7 @@ const login: NextPage = () => {
 
   return (
     <Box
+      data-cy="login-with-google-button"
       sx={{
         minHeight: '80vh',
         flex: 1,
@@ -53,8 +54,6 @@ const login: NextPage = () => {
     >
       <StyledFirebaseAuth
         uiConfig={{
-          // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function or I can use them both
-          // display GitHub as auth providers.
           signInSuccessUrl: '/todos',
           signInOptions: [firebase.googleAuth],
           callbacks: {
