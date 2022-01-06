@@ -26,6 +26,7 @@ const embeds = [
     title: 'YouTube',
     keywords: 'youtube video tube google',
     defaultHidden: true,
+    // eslint-disable-next-line react/display-name
     icon: () => (
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg"
@@ -46,12 +47,17 @@ const embeds = [
   },
 ];
 
-interface TextProps {
+interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
+  readonly?: boolean;
 }
 
-const RichTextEditor: FC<TextProps> = ({ value, onChange }) => {
+const RichTextEditor: FC<RichTextEditorProps> = ({
+  value,
+  onChange,
+  readonly,
+}) => {
   const editorRef = useRef<Editor>(null);
   const [remoteUpdates, setRemoteUpdates] = useState(0);
   useEffect(() => {
@@ -88,6 +94,7 @@ const RichTextEditor: FC<TextProps> = ({ value, onChange }) => {
       }}
     >
       <Editor
+        readOnly={readonly}
         key={remoteUpdates}
         ref={editorRef}
         embeds={embeds}

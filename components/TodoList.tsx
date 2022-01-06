@@ -1,4 +1,4 @@
-import { Box, Button } from 'theme-ui';
+import { Box, Button, Switch } from 'theme-ui';
 import { FC, useEffect, useState } from 'react';
 import TodoCard from '@components/TodoCard';
 import { Todo, UserInfo } from '@utils/types';
@@ -36,6 +36,7 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
           [session.id]: session,
         };
       }, {});
+
       setViewSessions(sessionsMappedByTodo);
     });
   }, [todos]);
@@ -51,77 +52,39 @@ const TodosList: FC<TodosListProps> = ({ currentUser }) => {
     <Box>
       {!emptyState && (
         <>
-          <Button
+          <Switch
+            label={`Showing ${completed ? 'completed todos' : 'pending todos'}`}
             sx={{ cursor: 'pointer' }}
             onClick={() => setCompleted((show) => !show)}
-          >
-            Toggle Done/Undone
-          </Button>
-          {!completed && (
-            <>
-              {todos
-                ?.filter((i) => !i.completed)
-                .map((todo) => (
-                  <TodoCard
-                    collaborators={omit(
-                      viewSessions[todo.id]?.collaborators,
-                      currentUser.uid
-                    )}
-                    onMouseOver={async ({ x, y }) => {
-                      addUserToSession(
-                        todo.id,
-                        currentUser.uid,
-                        x,
-                        y,
-                        currentUser.displayName
-                      );
-                    }}
-                    onMouseLeave={async () => {
-                      removeUserFromSession(todo.id, currentUser.uid);
-                    }}
-                    onDelete={deleteTodo}
-                    onUpdate={(draft) => {
-                      updateTodo(draft, currentUser.uid);
-                    }}
-                    key={todo.id}
-                    todo={todo}
-                  ></TodoCard>
-                ))}
-            </>
-          )}
-
-          {completed && (
-            <>
-              {todos
-                ?.filter((i) => i.completed)
-                .map((todo) => (
-                  <TodoCard
-                    collaborators={omit(
-                      viewSessions[todo.id]?.collaborators,
-                      currentUser.uid
-                    )}
-                    onMouseOver={async ({ x, y }) => {
-                      addUserToSession(
-                        todo.id,
-                        currentUser.uid,
-                        x,
-                        y,
-                        currentUser.displayName
-                      );
-                    }}
-                    onMouseLeave={async () => {
-                      removeUserFromSession(todo.id, currentUser.uid);
-                    }}
-                    onDelete={deleteTodo}
-                    onUpdate={(draft) => {
-                      updateTodo(draft, currentUser.uid);
-                    }}
-                    key={todo.id}
-                    todo={todo}
-                  ></TodoCard>
-                ))}
-            </>
-          )}
+          />
+          {todos
+            ?.filter((item) => (completed ? item.completed : !item.completed))
+            .map((todo) => (
+              <TodoCard
+                collaborators={omit(
+                  viewSessions[todo.id]?.collaborators,
+                  currentUser.uid
+                )}
+                onMouseOver={async ({ x, y }) => {
+                  addUserToSession(
+                    todo.id,
+                    currentUser.uid,
+                    x,
+                    y,
+                    currentUser.displayName
+                  );
+                }}
+                onMouseLeave={async () => {
+                  removeUserFromSession(todo.id, currentUser.uid);
+                }}
+                onDelete={deleteTodo}
+                onUpdate={(draft) => {
+                  updateTodo(draft, currentUser.uid);
+                }}
+                key={todo.id}
+                todo={todo}
+              ></TodoCard>
+            ))}
         </>
       )}
 
