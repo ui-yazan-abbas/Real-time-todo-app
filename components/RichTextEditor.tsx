@@ -26,7 +26,6 @@ const embeds = [
     title: 'YouTube',
     keywords: 'youtube video tube google',
     defaultHidden: true,
-    // eslint-disable-next-line react/display-name
     icon: () => (
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg"

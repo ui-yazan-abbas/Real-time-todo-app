@@ -2,9 +2,9 @@
 /** @jsx jsx */
 import { FC } from 'react';
 import { ThemeProvider, jsx } from 'theme-ui';
-import { sketchy } from '@utils/theme';
 import Navbar from './Navbar';
 import PageHead from './PageHead';
+import { sketchy } from '@theme-ui/presets';
 
 const Layout: FC = ({ children }) => {
   return (

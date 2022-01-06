@@ -68,6 +68,7 @@ const TodoCard: FC<Props> = ({
       {lock && (
         <Card bg={backgroundColor} p={3} m={4}>
           <Box
+            data-cy="todo-card"
             p={2}
             sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
           >
@@ -76,7 +77,7 @@ const TodoCard: FC<Props> = ({
           <Box p={2} sx={{ fontSize: 18 }}>
             <Text>{todo.description}</Text>
           </Box>
-          <Box p={2}>
+          <Box p={2} data-cy="lock-button">
             <Switch
               label="locked"
               checked={todo.locked}
@@ -114,6 +115,7 @@ const TodoCard: FC<Props> = ({
               // todo test if current user can delete
               onDelete(todo);
             }}
+            data-cy="delete-button"
           >
             <FiX />
           </IconButton>
@@ -124,7 +126,7 @@ const TodoCard: FC<Props> = ({
             >
               <Link href={`/todos/${todo.id}`}>{todo.title}</Link>
             </Box>
-            <Box p={2} sx={{ fontSize: 18 }}>
+            <Box p={2} sx={{ fontSize: 18 }} data-cy="description-space">
               <RichTextEditor
                 onChange={(newDescription) => {
                   onUpdate({
@@ -135,7 +137,7 @@ const TodoCard: FC<Props> = ({
                 value={todo.description}
               />
             </Box>
-            <Box p={2}>
+            <Box p={2} data-cy="switches">
               <Switch
                 label="completed"
                 checked={todo.completed}

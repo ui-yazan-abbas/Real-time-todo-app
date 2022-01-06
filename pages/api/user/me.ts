@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import * as admin from 'firebase-admin';
 import log from '@logger/index';
 
-// TODO move to env file
 const adminConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   privateKey: process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY?.replace(
@@ -35,7 +34,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         });
       }
     } catch (error) {
-      log.error(error);
+      log.info('user not logged in');
       res.status(403).json({
         error: {
           message: `Error validating token`,

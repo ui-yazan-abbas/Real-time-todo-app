@@ -1,8 +1,12 @@
 ## Real-time todo App
 I created a full stack todo app with a real-time collaberation between users using TypeScript with Nextjs, Node and Firebase.
 
+![Skärmklipp](https://user-images.githubusercontent.com/77113737/148399909-cb461e75-6a1f-46e5-8b60-73339902d3ee.JPG)
 
-![Skärmklipp](https://user-images.githubusercontent.com/77113737/147872893-8b42ea7f-5400-479a-90a7-13ae7485d2d4.JPG)
+## Demo Video
+
+https://www.loom.com/share/212385886fc74844af8d705b2459ba50
+
 ## Running the App
 After cloning the app you will need a .env file containing the following:
 ```bash
@@ -26,10 +30,6 @@ npm run dev
 yarn dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-## Demo Video
-
-https://www.loom.com/share/4a8543c1be6f43349bca30cfc2c97e62
-
 
 ## Why Nextjs
 - Server Side Rendering (SSR):
