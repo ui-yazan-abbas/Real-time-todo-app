@@ -1,12 +1,13 @@
+import { FiX } from 'react-icons/fi';
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
-import Link from 'next/link';
-import { FiX, FiShare } from 'react-icons/fi';
-import { Switch, Box, Card, IconButton } from 'theme-ui';
+import { Switch, Box, Card, IconButton, Text } from 'theme-ui';
+import RichTextEditor from './RichTextEditor';
 import { throttle } from 'lodash';
 import { Collaborator, Todo } from '@utils/types';
-import { toast } from 'react-toastify';
-import RichTextEditor from './RichTextEditor';
+import Link from 'next/link';
 import CollaberatorLayer from './CollaberatorLayer';
+import { FiShare } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 interface Props {
   todo: Todo;
@@ -106,7 +107,6 @@ const TodoCard: FC<Props> = ({
 
       <Box sx={{ wordWrap: 'break-word' }}>
         <Box
-          data-cy="todo-card"
           p={2}
           sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
         >
@@ -136,18 +136,16 @@ const TodoCard: FC<Props> = ({
               });
             }}
           ></Switch>
-          <Box data-cy="lock-button">
-            <Switch
-              label="locked"
-              checked={todo.locked}
-              onChange={(event) => {
-                onUpdate({
-                  ...todo,
-                  locked: event.target.checked,
-                });
-              }}
-            ></Switch>
-          </Box>
+          <Switch
+            label="locked"
+            checked={todo.locked}
+            onChange={(event) => {
+              onUpdate({
+                ...todo,
+                locked: event.target.checked,
+              });
+            }}
+          ></Switch>
         </Box>
       </Box>
     </Card>
