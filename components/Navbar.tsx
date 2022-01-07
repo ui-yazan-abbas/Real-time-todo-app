@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { FC } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
 import { Button, jsx, Themed } from 'theme-ui';
 import AddTodo from './AddTodo';
 import { useAuthState } from 'react-firebase-hooks/auth';
