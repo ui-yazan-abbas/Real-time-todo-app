@@ -5,7 +5,7 @@ I created a full stack todo app with a real-time collaberation between users usi
 
 ## Demo Video
 
-https://www.loom.com/share/212385886fc74844af8d705b2459ba50
+https://www.loom.com/share/b0f9aab48e4d40abb653ce882a2a9319
 
 ## Running the App
 After cloning the app you will need a .env file containing the following:
