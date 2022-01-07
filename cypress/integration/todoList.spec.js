@@ -11,7 +11,7 @@ describe('Test Basic App Functionality', () => {
     cy.wait(500);
     cy.contains(todo.title).should('be.visible');
     cy.get(todo.form).should('not.exist');
-    cy.get(todo.deleteButton).should('be.visible').click();
+    cy.get(todo.deleteButton).should('be.visible').click({ multiple: true });
     cy.get(todo.todoCard).should('not.exist');
   });
 
@@ -35,9 +35,9 @@ describe('Test Basic App Functionality', () => {
     cy.wait(500);
     cy.contains(todo.title).should('be.visible');
     cy.get(todo.form).should('not.exist');
-    cy.get(todo.switches).should('be.visible').first().first().click();
-    cy.get(todo.deleteButton).should('not.exist');
-    cy.get(todo.lockButton).should('be.visible').first().click();
+    cy.contains(todo.lockButton).should('be.visible').click();
+    cy.get(todo.deleteButton).should('be.visible');
+    cy.contains(todo.lockButton).should('be.visible').click();
     cy.get(todo.deleteButton).should('be.visible').click();
     cy.get(todo.todoCard).should('not.exist');
   });
@@ -49,18 +49,17 @@ describe('Test Basic App Functionality', () => {
     cy.wait(500);
     cy.contains(todo.title).should('be.visible');
     cy.get(todo.form).should('not.exist');
-    cy.get(todo.completedButton).should('be.visible').first().click();
+    cy.contains(todo.completedButton).should('be.visible').click();
+    cy.get(todo.todoCard).should('not.exist');
     cy.contains(todo.title).should('not.exist');
     cy.get(todo.deleteButton).should('not.exist');
-    cy.contains(todo.toggleButton).click();
+    cy.contains(todo.toggleButtonFirst).click();
     cy.get(todo.todoCard).should(
       'have.css',
       'background-color',
       'rgb(204, 255, 204)'
     );
-    cy.get(todo.completedButton).should('be.visible').first().click();
     cy.wait(500);
-    cy.contains(todo.toggleButton).click();
     cy.get(todo.deleteButton).should('be.visible').click();
     cy.get(todo.todoCard).should('not.exist');
   });
@@ -70,6 +69,7 @@ describe('Test Basic App Functionality', () => {
     cy.get(todo.titleInput).should('be.visible').type(todo.title);
     cy.get(todo.submitTodo).should('be.visible').click();
     cy.wait(500);
+    cy.contains(todo.toggleButtonSecond).click();
     cy.get(todo.form).should('not.exist');
     cy.get(todo.deleteButton).should('be.visible').click();
     cy.get(todo.todoCard).should('not.exist');
