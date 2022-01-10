@@ -2,25 +2,16 @@
 This example commands.js shows you how to
 create various custom commands and overwrite
 existing commands.
-
 For more comprehensive examples of custom
 commands please read more here:
 https://on.cypress.io/custom-commands
 ***********************************************
-
-
 -- This is a parent command --
 Cypress.Commands.add('login', (email, password) => { ... })
-
-
 -- This is a child command --
 Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-
-
 -- This is a dual command --
 Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-
-
 -- This will overwrite an existing command --
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... }) */
 import firebase from 'firebase/app';
@@ -31,7 +22,7 @@ import { attachCustomCommands } from 'cypress-firebase';
 
 const fbConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  apiKey: "AIzaSyAdFe32HGZG423dTYQ0sjeed8QUDv_0m2I",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,

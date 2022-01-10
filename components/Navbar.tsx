@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { FC } from 'react';
+import Link from 'next/link';
 import { Button, jsx, Themed } from 'theme-ui';
 import AddTodo from './AddTodo';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,7 +10,7 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 const Navbar: FC = () => {
-  const [user, loading, error] = useAuthState(firebase.auth);
+  const [user] = useAuthState(firebase.auth);
   const router = useRouter();
 
   return (
@@ -27,13 +28,6 @@ const Navbar: FC = () => {
         position: 'relative',
       }}
     >
-      <Themed.div
-        sx={{
-          transform: 'translateX(-50%)',
-          left: '50%',
-          position: 'absolute',
-        }}
-      ></Themed.div>
       {user && (
         <Themed.div
           sx={{

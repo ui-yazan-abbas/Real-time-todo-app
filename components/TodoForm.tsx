@@ -1,6 +1,6 @@
+import React, { FC, useState } from 'react';
 import { isValidTodo } from '@lib/todos';
 import { Todo } from '@utils/types';
-import React, { FC, useState } from 'react';
 import { Box, Label, Input, Switch, Button, Card } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import VisuallyHidden from './VisuallyHidden';
