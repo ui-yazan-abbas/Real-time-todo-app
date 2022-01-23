@@ -27,7 +27,6 @@ const Navbar: FC = () => {
         position: 'relative',
       }}
     >
-      
       {user && (
         <Themed.div
           sx={{

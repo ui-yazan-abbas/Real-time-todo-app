@@ -9,7 +9,7 @@ const CollaberatorLayer: FC<{
 }> = ({ collaborators, cardRef }) => {
   const mice = Object.values(collaborators || {});
   const [rect, setRect] = useState({ width: 0, height: 0 });
-  
+
   useEffect(() => {
     if (cardRef.current) {
       const { width, height } = cardRef.current.getBoundingClientRect();
