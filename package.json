@@ -11,8 +11,7 @@
     "dev-cypress": "next dev & cypress open"
   },
   "pre-commit": [
-    "prettier",
-    "cypress"
+    "prettier"
   ],
   "prettier": {
     "semi": true,

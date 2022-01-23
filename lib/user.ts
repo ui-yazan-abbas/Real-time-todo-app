@@ -8,7 +8,6 @@ export async function getCurrentUser(
   headers: IncomingHttpHeaders
 ) {
   const jwt = cookies.jwt;
-  // absolute urls are required by nextjs ,https://stackoverflow.com/a/65556668/3109205
   const protocol = headers['x-forwarded-proto'] || 'http';
   const baseUrl = `${protocol}://${headers['host']}`;
 

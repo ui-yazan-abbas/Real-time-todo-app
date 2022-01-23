@@ -49,7 +49,7 @@ const Home: NextPage = () => {
             fontSize: '50px',
           }}
         >
-          Ubiquiti Todo App
+          Todo App
         </Text>
       </Heading>
 

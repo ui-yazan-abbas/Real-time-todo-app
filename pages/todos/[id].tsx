@@ -2,7 +2,6 @@ import { Todo, TodoSession, UserInfo } from '@utils/types';
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import firebase from '@lib/firebase';
 import TodoCard from '@components/TodoCard';
 import { Box } from 'theme-ui';
 import { omit } from 'lodash';

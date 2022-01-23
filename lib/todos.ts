@@ -119,7 +119,6 @@ export async function addUserToSession(
       .collection('sessions')
       .doc(todoId)
       .update({
-        // dotted updates
         [`collaborators.${userId}`]: { x, y, displayName },
       });
   } else {

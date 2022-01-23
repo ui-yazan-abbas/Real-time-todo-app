@@ -1,6 +1,6 @@
 import { FiX } from 'react-icons/fi';
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
-import { Switch, Box, Card, IconButton, Text } from 'theme-ui';
+import { Switch, Box, Card, IconButton } from 'theme-ui';
 import RichTextEditor from './RichTextEditor';
 import { throttle } from 'lodash';
 import { Collaborator, Todo } from '@utils/types';
@@ -85,8 +85,6 @@ const TodoCard: FC<Props> = ({
         disabled={lock}
         sx={{ cursor: 'pointer', position: 'absolute', top: 10, right: 10 }}
         onClick={async () => {
-          // todo loading indicator
-          // todo test if current user can delete
           onDelete(todo);
         }}
         data-cy="delete-button"

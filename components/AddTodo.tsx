@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import React, { FC, useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
 import { Button, Themed, jsx, Message } from 'theme-ui';
 import { FiX, FiPlus } from 'react-icons/fi';
 import { ExpandModal } from 'react-spring-modal';
@@ -14,14 +13,9 @@ interface AddTodoProps {
 }
 
 const AddTodo: FC<AddTodoProps> = ({ userId }) => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState('');
-  useEffect(() => {
-    setIsOpen(false);
-  }, [router.asPath.split('?')[0]]);
-
+  
   return (
     <>
       <ExpandModal
@@ -36,9 +30,6 @@ const AddTodo: FC<AddTodoProps> = ({ userId }) => {
         }}
         overlayProps={{
           onClick: () => setIsOpen(false),
-          style: {
-            top: (buttonRef.current?.getBoundingClientRect().bottom || 0) + 15,
-          },
         }}
         isOpen={isOpen}
       >
@@ -58,7 +49,6 @@ const AddTodo: FC<AddTodoProps> = ({ userId }) => {
 
       <Themed.div
         sx={{ cursor: 'pointer' }}
-        ref={buttonRef}
         as={Button}
         mx={2}
         onClick={() => setIsOpen(!isOpen)}
