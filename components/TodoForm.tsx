@@ -95,5 +95,5 @@ const TodoForm: FC<Props> = ({ todo: initialState, onSubmit }) => {
     </Card>
   );
 };
- 
+
 export default TodoForm;
