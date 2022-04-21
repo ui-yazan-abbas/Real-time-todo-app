@@ -1,5 +1,5 @@
 ## Real-time todo App
-I created a full stack todo app with a real-time collaberation between users using TypeScript with Nextjs, Node and Firebase.
+I created a full stack todo app with a real-time collaberation between users using TypeScript with Nextjs, Node and Firebase realtime database.
 
 ![Skärmklipp](https://user-images.githubusercontent.com/77113737/150672954-7c315e39-692d-4631-9805-64b5561aacaf.JPG)
 
